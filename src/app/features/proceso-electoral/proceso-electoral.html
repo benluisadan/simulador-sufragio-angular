@@ -1,0 +1,19 @@
+ 
+
+<div class="container">
+  
+  <div class="qr-section">
+    <img src="assets/img/LogoFacebook.jpg" alt="QR Yape" class="qr-img">
+  </div>
+
+  <div *ngIf="cargando">
+    <p>Cargando procesos electoddraleds</p>
+  </div>
+
+  <div *ngIf="!cargando" class="button-group">
+    <button class="btn-option" *ngFor="let p of procesos" (click)="abrirProceso(p)">
+      {{ p.nombre }}
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,33 @@
+
+.btn-donar {
+  background: #8a2be2;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.titulo-app {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  font-weight: 700;
+}
+
+.header-app {
+  width: 100%;
+  display: flex;
+  justify-content: center;   /* Centra horizontalmente */
+  align-items: center;       /* Centra verticalmente si agregas íconos */
+  padding: 12px 0;
+  background: #fff;          /* Opcional */
+}
+
+.header-app h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+}

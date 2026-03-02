@@ -1,0 +1,96 @@
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Navegación */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+}
+
+.nav-link {
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 6px;
+  color: #007bff;
+  transition: 0.2s;
+}
+
+.nav-link:hover {
+  background: #e9f1ff;
+}
+
+.nav-link.active {
+  background: #007bff;
+  color: white;
+}
+
+/* Tarjetas */
+.card {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+  font-size: 20px;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+/* Formularios */
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  font-weight: 600;
+}
+
+input, select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+/* Botones */
+.btn-primary,
+.btn-secondary,
+.btn-alert {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-alert {
+  background: #dc3545;
+  color: white;
+}

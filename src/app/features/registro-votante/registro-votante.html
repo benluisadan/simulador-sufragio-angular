@@ -1,0 +1,60 @@
+<div class="container">
+
+  <!-- FORMULARIO ÚNICO: SIMULAR -->
+  <section class="card" [formGroup]="form">
+    <h2>Quiero simular mi voto</h2>
+
+    <!-- DNI -->
+    <div class="form-group">
+      <label>DNI</label>
+      <input type="text" formControlName="dni" placeholder="Documento Nacional de Identidad">
+      <div class="error" *ngIf="form.controls.dni.touched && form.controls.dni.invalid">
+        DNI debe tener 8 dígitos.
+      </div>
+    </div>
+
+    <!-- UBIGEO -->
+    <div class="form-group">
+      <label>Donde votas</label>
+
+      <!-- Departamento -->
+      <select formControlName="departamento" (change)="onDepartamentoChange()">
+        <option value="">Seleccionar Departamento</option>
+        <option *ngFor="let d of departamentos" [value]="d.id">{{ d.nombre }}</option>
+      </select>
+
+      <!-- Provincia -->
+      <select formControlName="provincia" (change)="onProvinciaChange()">
+        <option value="">Seleccionar Provincia</option>
+        <option *ngFor="let p of provincias" [value]="p.id">{{ p.nombre }}</option>
+      </select>
+
+      <!-- Distrito -->
+      <select formControlName="distrito">
+        <option value="">Seleccionar Distrito</option>
+        <option *ngFor="let dis of distritos" [value]="dis.id">{{ dis.nombre }}</option>
+      </select>
+    </div>
+
+    <!-- Correo -->
+    <div class="form-group">
+      <label>Correo electrónico</label>
+      <input type="email" formControlName="correo" placeholder="ejemplo@correo.com">
+      <div class="error" *ngIf="form.controls.correo.touched && form.controls.correo.invalid">
+        Correo inválido.
+      </div>
+    </div>
+
+    <!-- Celular -->
+    <div class="form-group">
+      <label>Número WhatsApp</label>
+      <input type="text" formControlName="celular" placeholder="+51 9XXXXXXXX">
+      <div class="error" *ngIf="form.controls.celular.touched && form.controls.celular.invalid">
+        Número de celular inválido.
+      </div>
+    </div>
+
+    <button class="btn-primary" (click)="enviar()">Iniciar</button>
+  </section>
+
+</div>
