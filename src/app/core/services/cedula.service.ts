@@ -1,16 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable,inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_URL } from '../../app.config';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CedulaService {
 
-  private baseUrl = '/api/Cedula';
-  private baseUrlv = '/api/voto';
+  private http = inject(HttpClient);
+  private apiUrl = inject(API_URL);
 
-  constructor(private http: HttpClient) { }
+  private baseUrl = `${this.apiUrl}/api/Cedula`;
+  private baseUrlv = `${this.apiUrl}/api/voto`;
+
+
+  //private baseUrl = '/api/Cedula';
+  //private baseUrlv = '/api/voto';
+
+  //constructor(private http: HttpClient) { }
 
   getPresidencial(procesoId: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/presidencial/${procesoId}`);
@@ -44,17 +53,17 @@ export class CedulaService {
     return this.http.post(`${this.baseUrlv}/diputado`, data);
   }
 
-   votarParlamentoAndino(data: any) {
+  votarParlamentoAndino(data: any) {
     return this.http.post(`${this.baseUrlv}/parlamento-andino`, data);
   }
 
   getCandidatoBackground(organizacionId: number, dni: string): void {
-  this.http.get(`/api/candidatos/${organizacionId}/${dni}`)
-    .subscribe({
-      next: () => console.log('Candidato precargado en segundo plano'),
-      error: (err) => console.warn('Error precargando candidato', err)
-    });
-}
- 
+    this.http.get(`/api/candidatos/${organizacionId}/${dni}`)
+      .subscribe({
+        next: () => console.log('Candidato precargado en segundo plano'),
+        error: (err) => console.warn('Error precargando candidato', err)
+      });
+  }
+
 
 }
