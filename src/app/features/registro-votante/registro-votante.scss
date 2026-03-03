@@ -39,7 +39,7 @@
   background: #ffffff;
   padding: 22px;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .card h2 {
@@ -60,7 +60,8 @@ label {
   font-weight: 600;
 }
 
-input, select {
+input,
+select {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -78,6 +79,16 @@ input, select {
   font-size: 16px;
   cursor: pointer;
   font-weight: 600;
+  margin-bottom: 12px;
+  /* ← SEPARACIÓN ENTRE BOTONES */
+
+}
+
+.error {
+  color: #d32f2f;        /* rojo profesional */
+  font-size: 14px;
+  margin-top: 4px;
+  font-weight: 500;
 }
 
 .btn-primary {
@@ -93,4 +104,14 @@ input, select {
 .btn-alert {
   background: #dc3545;
   color: white;
+}
+
+
+.card {
+  overflow: visible !important;
+}
+
+select {
+  z-index: 999;
+  position: relative;
 }

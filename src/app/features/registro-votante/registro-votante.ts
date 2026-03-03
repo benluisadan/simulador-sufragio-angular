@@ -140,12 +140,12 @@ export class RegistroVotante implements OnInit {
           //alert("Este DNI ya está registrado. Puedes modificar tu voto.");
           //this.setForm('modificar');
           this.router.navigate(['/cedula-votacion'], {
-          queryParams: {
-            procesoId: this.procesoId,
-            votanteId: resp.votantenId,
-            ubigeo: resp.ubigeoId
-          }
-        });
+            queryParams: {
+              procesoId: this.procesoId,
+              votanteId: resp.votantenId,
+              ubigeo: resp.ubigeoId
+            }
+          });
         } else {
           // Celular NO coincide → suplantación
           alert(
@@ -162,18 +162,23 @@ export class RegistroVotante implements OnInit {
     });
   }
 
+  cancelar() {
+    this.router.navigate(['/proceso-electoral']);
+  }
+
+
   registrarNuevoVotante() {
 
-    const celular = this.form.value.celular!;
-    const discado = celular.startsWith('+51')
-      ? '51'
-      : celular.replace('+', '').substring(0, celular.indexOf('9'));
+      const celular = this.form.value.celular!;
+      const discado = celular.startsWith('+51')
+        ? '51'
+        : celular.replace('+', '').substring(0, celular.indexOf('9'));
 
-    const numero = celular.replace(`+${discado}`, '');
+      const numero = celular.replace(`+${discado}`, '');
 
-    var depx = this.form.value.departamento;
+      var depx = this.form.value.departamento;
 
-    if (depx.substring(0, 2) == '14') {
+      if(depx.substring(0, 2) == '14') {
       depx = '14';
     }
 
