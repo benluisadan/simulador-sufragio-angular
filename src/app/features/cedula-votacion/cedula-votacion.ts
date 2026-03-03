@@ -900,7 +900,20 @@ export class CedulaVotacion implements OnInit {
     return this.tab === tipo;                 // Móvil: solo la seleccionada
   }
 
+  hayVotoRealizado(): boolean {
+    return (
+      this.partidosPresidenciales.some(p => p.marcado) ||
+      this.partidosSenadoUnico.some(p => p.marcado) ||
+      this.partidosSenadoMultiple.some(p => p.marcado) ||
+      this.partidosDiputados.some(p => p.marcado) ||
+      this.partidosAndinos.some(p => p.marcado)
+    );
+  }
 
+  enviarSimulacion() {
+    this.cedulaService.enviarResumenVoto(this.votanteId).subscribe(); // sin callbacks
+    window.location.href = '/donar';
+  }
 
 
 }

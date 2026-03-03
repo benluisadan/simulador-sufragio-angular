@@ -5,6 +5,15 @@
     Salir
   </button>
 </div>
+<div class="enviar-simulacion-container">
+  <button 
+    class="btn-enviar-simulacion" 
+    [disabled]="!hayVotoRealizado()" 
+    (click)="enviarSimulacion()">
+    Enviar Simulación
+  </button>
+</div>
+
 
 <div class="tabs-mobile">
   <button (click)="setTab('presidencial')" [class.active]="tab==='presidencial'">Presidente</button>

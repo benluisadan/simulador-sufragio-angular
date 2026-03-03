@@ -1,4 +1,4 @@
-import { Injectable,inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_URL } from '../../app.config';
@@ -14,6 +14,8 @@ export class CedulaService {
 
   private baseUrl = `${this.apiUrl}/api/Cedula`;
   private baseUrlv = `${this.apiUrl}/api/voto`;
+  private baseUrlc = `${this.apiUrl}/api/candidatos`;
+  private baseUrlrv = `${this.apiUrl}/api/ResumenVoto`;
 
 
   //private baseUrl = '/api/Cedula';
@@ -58,11 +60,15 @@ export class CedulaService {
   }
 
   getCandidatoBackground(organizacionId: number, dni: string): void {
-    this.http.get(`/api/candidatos/${organizacionId}/${dni}`)
+    this.http.get(`${this.baseUrlc}/${organizacionId}/${dni}`)
       .subscribe({
         next: () => console.log('Candidato precargado en segundo plano'),
         error: (err) => console.warn('Error precargando candidato', err)
       });
+  }
+
+  enviarResumenVoto(votanteId: number) {
+    return this.http.get(`${this.baseUrlrv}/${votanteId}`);
   }
 
 
