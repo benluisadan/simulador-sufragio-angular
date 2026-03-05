@@ -2,17 +2,18 @@
 
   <!-- FORMULARIO ÚNICO: SIMULAR -->
   <section class="card" [formGroup]="form">
-    <h2>Quiero simular mi voto</h2>
+   
 
-    <!-- DNI -->
-    <div class="form-group">
+    <!-- DNI  
+      <h2>Quiero simular mi voto</h2>
+          <div class="form-group">
       <label>DNI</label>
       <input type="text" formControlName="dni" placeholder="Documento Nacional de Identidad">
       <div class="error" *ngIf="form.controls.dni.touched && form.controls.dni.invalid">
         DNI debe tener 8 dígitos.
       </div>
     </div>
-
+    -->
     <!-- UBIGEO -->
     <div class="form-group">
       <label>Donde votas</label>
@@ -38,24 +39,79 @@
 
     <!-- Correo -->
     <div class="form-group">
-      <label>Correo electrónico</label>
+      <label>Correo electrónico (Donde se enviará tu simulación)</label>
       <input type="email" formControlName="correo" placeholder="ejemplo@correo.com">
       <div class="error" *ngIf="form.controls.correo.touched && form.controls.correo.invalid">
         Correo inválido.
       </div>
     </div>
 
-    <!-- Celular -->
+    <!-- CELULAR -->
     <div class="form-group">
-      <label>Número WhatsApp</label>
-      <input type="text" formControlName="celular" placeholder="+51 9XXXXXXXX">
-      <div class="error" *ngIf="form.controls.celular.touched && form.controls.celular.invalid">
-        Número de celular inválido.
+      <label>Número whatsapp</label>
+
+      <!-- Combo de discado -->
+      <select formControlName="discado" (change)="onDiscadoChange()">
+        <option value="">Seleccionar país</option>
+        <option *ngFor="let p of telefonia" [value]="p.codigoTelefonico">
+          {{ p.nombrePais }} ({{ p.codigoTelefonico }})
+        </option>
+      </select>
+
+      <!-- Número sin discado -->
+      <input type="text" formControlName="numeroCelular" [attr.maxlength]="longitudCelular"
+        placeholder="Ingresa tu número">
+
+      <div class="error" *ngIf="form.controls.numeroCelular.touched && form.controls.numeroCelular.invalid">
+        El número debe tener {{ longitudCelular }} dígitos.
+      </div>
+       
+    </div>
+    <!-- CONSENTIMIENTO LEGAL -->
+    <div class="form-group consentimiento">
+      <label class="checkbox-legal">
+        <input type="checkbox" formControlName="aceptaTratamientoDatos">
+        <span>
+          Autorizo el tratamiento de mis datos personales (correo y número de celular) para fines de registro,
+          verificación y comunicaciones relacionadas con el simulador. He leído y acepto la
+          <a (click)="abrirPopupPrivacidad()" class="link-privacidad">Política de Privacidad</a>.
+        </span>
+      </label>
+
+      <div class="error"
+        *ngIf="form.controls.aceptaTratamientoDatos.touched && form.controls.aceptaTratamientoDatos.invalid">
+        Debes aceptar el tratamiento de datos personales para continuar.
       </div>
     </div>
-
     <button class="btn-primary" (click)="enviar()">Iniciar</button>
     <button class="btn-primary" (click)="cancelar()">Cancelar</button>
   </section>
 
+</div>
+
+<!-- POPUP DE POLÍTICA DE PRIVACIDAD -->
+<div class="popup-fondo" *ngIf="mostrarPopupPrivacidad">
+  <div class="popup-contenido">
+
+    <h2>Política de Privacidad</h2>
+
+    <p>
+      Esta plataforma recopila y trata tus datos personales (correo y número de celular)
+      exclusivamente para fines de registro, verificación y comunicaciones relacionadas con
+      el simulador de sufragio. Tus datos no serán compartidos con terceros salvo obligación legal.
+    </p>
+    <h3>Donaciones</h3>
+    <p>
+      Este simulador es un proyecto independiente y sin fines de lucro.
+      Si deseas apoyar su mantenimiento y desarrollo, puedes realizar una donación voluntaria.
+      Las donaciones no están vinculadas al registro ni afectan tu participación en el simulador.
+    </p>
+
+    <p>
+      Puedes solicitar la eliminación o actualización de tus datos escribiendo a:
+      <strong>elecciones26peru@gmail.com</strong>.
+    </p>
+
+    <button class="btn-primary" (click)="cerrarPopupPrivacidad()">Cerrar</button>
+  </div>
 </div>

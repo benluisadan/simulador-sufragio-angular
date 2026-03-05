@@ -25,5 +25,10 @@ export class VotanteService {
     return this.http.get(`${this.apiUrl}/api/Votantes/validar-dni/${dni}`);
   }
 
+  validarVotante(correo: string, discado: string, numero: string) {
+  return this.http.get(`${this.apiUrl}/api/Votantes/validar?correo=${correo}&discado=${discado}&numero=${numero}`);
+}
+
+
 
 }

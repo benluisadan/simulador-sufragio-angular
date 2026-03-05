@@ -59,8 +59,7 @@ export class ProcesoElectoral implements OnInit {
         queryParams: { procesoId: p.procesoId }
       });
     }else{
-      alert('El proceso electoral no se encuentra disponible');
-
+      alert('Estamos trabajando para brindarles la simulación en 2da vuelta.');
     }
 
   }

@@ -30,4 +30,9 @@ export class UbigeoService {
     return this.http.get<any[]>(`${this.apiUrl}/api/Ubigeo/distritos/${departamentoId}/${provinciaId}`);
   }
 
+  getTelefonia(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/Ubigeo/telefonia`);
+  }
+
+
 }
