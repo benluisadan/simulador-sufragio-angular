@@ -394,15 +394,18 @@
 
 .modal-content {
   width: 100%;
-  max-width: 420px;     /* límite para que no se vea gigante */
-  max-height: 85vh;     /* evita que se salga de la pantalla */
-  overflow-y: auto;     /* scroll interno */
+  max-width: 420px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   border-radius: 12px;
   padding: 12px;
   background: #fff;
   box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-
 }
+
+
 
 /* HEADER FIJO */
 .modal-header {
@@ -419,7 +422,9 @@
   padding: 3px;
   overflow-y: auto;
   flex: 1;
+  min-height: 0;
 }
+
 
 /* FOOTER FIJO */
 .modal-footer {
@@ -554,8 +559,8 @@
 }
 
 .logo-partido-popup{
-  width: 100px;
-  height: 90px;
+  width: 80px;
+  height: 70px;
   object-fit: contain;
   border: 1px solid #383535;
 }
