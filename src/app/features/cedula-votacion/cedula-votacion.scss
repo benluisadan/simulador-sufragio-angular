@@ -686,7 +686,7 @@
 /* BLOQUE INFERIOR */
 .bloque-inferior {
   margin-top: 10px;
-  border-top: 1px solid #ccc;
+  border-top: 0.2 px solid #ccc;
   padding-top: 8px;
    flex-direction: column;
   gap: 4px;
@@ -849,4 +849,19 @@
 .btn-enviar-simulacion:disabled {
   background: #9bbfa1;
   cursor: not-allowed;
+}
+
+.partido-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #74688a; /* gris institucional */
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.instruccion {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  line-height: 1.4;
 }

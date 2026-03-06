@@ -132,6 +132,7 @@ export class CedulaVotacion implements OnInit {
   logoOrganizacion = '';
   AntiguedadOrganizacion = '';
   IdiologiaOrganizaion = '';
+  popupComoElegir = '';
 
   tipoActual: TipoEleccion | null = null;
   partidoActual: Partido | null = null;
@@ -234,6 +235,7 @@ export class CedulaVotacion implements OnInit {
   }
 
   cargarPresidencial() {
+
     this.cedulaService.getPresidencial(1).subscribe({
       next: (resp) => {
 
@@ -265,6 +267,7 @@ export class CedulaVotacion implements OnInit {
           idiologia: o.idiologia,
 
           marcado: false
+
         }));
 
         this.cd.detectChanges();
@@ -326,6 +329,7 @@ export class CedulaVotacion implements OnInit {
           id: o.organizacionId,
           nombre: o.organizacionNombre,
           logopartido: o.logoUrl,
+          antiguedad: o.antiguedad,
           marcado: false,
           numero: undefined,
           votanteCedulaId: this.votanteId,
@@ -344,8 +348,8 @@ export class CedulaVotacion implements OnInit {
             organizacionjneid: c.organizacionPoliticaId
           }))
         }));
-
         this.cd.detectChanges();
+
       },
       error: (err) => {
         console.error("Error cargando Senado Múltiple", err);
@@ -360,6 +364,7 @@ export class CedulaVotacion implements OnInit {
         this.partidosDiputados = resp.opciones.map((o: any) => ({
           id: o.organizacionId,
           nombre: o.organizacionNombre,
+          antiguedad: o.antiguedad,
           logopartido: o.logoUrl,
           marcado: false,
           numero1: undefined,
@@ -382,6 +387,7 @@ export class CedulaVotacion implements OnInit {
         }));
 
         this.cd.detectChanges();
+
       },
       error: (err) => {
         console.error("Error cargando Diputados", err);
@@ -396,7 +402,8 @@ export class CedulaVotacion implements OnInit {
         this.partidosAndinos = resp.opciones.map((o: any) => ({
           id: o.organizacionId,
           nombre: o.organizacionNombre,
-          logopartido: o.logoUrl,
+          logopartido: o.logoUrl, 
+          antiguedad: o.antiguedad,
           marcado: false,
           numero1: undefined,
           numero2: undefined,
@@ -418,6 +425,7 @@ export class CedulaVotacion implements OnInit {
         }));
 
         this.cd.detectChanges();
+
       },
       error: (err) => {
         console.error("Error cargando Parlamento Andino", err);
@@ -449,6 +457,7 @@ export class CedulaVotacion implements OnInit {
 
         // Si NO está marcado → popup simple sin candidatos
         this.popupTitulo = `LISTA PRESIDENCIAL`;
+        this.popupComoElegir = '';
         this.popupTituloPartido = `${partido.nombre}`;
         this.logoOrganizacion = `${partido.logopartido}`
         this.AntiguedadOrganizacion = `${partido.antiguedad}`
@@ -473,8 +482,10 @@ export class CedulaVotacion implements OnInit {
         this.popupTitulo = `CANDIDATOS SENADOR ÚNICO`;
         this.popupTituloPartido = `${partido.nombre}`;
         this.logoOrganizacion = `${partido.logopartido}`
+        this.AntiguedadOrganizacion = `${partido.antiguedad}`
         // Cargar candidatos reales del backend
         this.candidatosPopup = partido.candidatos ?? [];
+        this.popupComoElegir = 'Para aplicar tu voto preferencial, selecciona 1 o 2 candidatos de tu preferencia.';
 
         this.candidatosSeleccionados = [];
         this.tipoActual = 'senado-unico';
@@ -498,7 +509,8 @@ export class CedulaVotacion implements OnInit {
         this.popupTitulo = `CANDIDATOS SENADOR MULTIPLE`;
         this.popupTituloPartido = `${partido.nombre}`;
         this.logoOrganizacion = `${partido.logopartido}`
-
+        this.AntiguedadOrganizacion = `${partido.antiguedad}`
+        this.popupComoElegir = 'Para aplicar tu voto preferencial, selecciona al candidato de tu preferencia.';
         // limpiar selección previa
         this.candidatosSeleccionados = [];
 
@@ -525,12 +537,13 @@ export class CedulaVotacion implements OnInit {
         this.popupTitulo = `CANDIDATOS DIPUTADOS`;
         this.popupTituloPartido = `${partido.nombre}`;
         this.logoOrganizacion = `${partido.logopartido}`
-
+        this.AntiguedadOrganizacion = `${partido.antiguedad}`
         this.candidatosSeleccionados = [];
+
 
         // ← CANDIDATOS REALES DEL BACKEND
         this.candidatosPopup = partido.candidatos ?? [];
-
+        this.popupComoElegir = 'Para aplicar tu voto preferencial, selecciona 1 o 2 candidatos de tu preferencia.';
         this.tipoActual = 'diputado';
         this.partidoActual = partido;
         this.popupVisible = true;
@@ -547,9 +560,10 @@ export class CedulaVotacion implements OnInit {
           this.popupVisible = true;
           return;
         }
-
+        this.popupComoElegir = 'Para aplicar tu voto preferencial, selecciona 1 o 2 candidatos de tu preferencia.';
         this.popupTitulo = `CANDIDATOS PARLAMENTO ANDINO`;
         this.logoOrganizacion = `${partido.logopartido}`
+        this.AntiguedadOrganizacion = `${partido.antiguedad}`
         this.popupTituloPartido = `${partido.nombre}`;
         this.logoOrganizacion = `${partido.logopartido}`
         this.candidatosSeleccionados = [];

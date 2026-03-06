@@ -15,7 +15,7 @@
 </div>
 
 
-<div class="tabs-mobile">
+<div class="tabs-mobile"> 
   <button (click)="setTab('presidencial')" [class.active]="tab==='presidencial'">Presidente</button>
   <button (click)="setTab('senado-unico')" [class.active]="tab==='senado-unico'">Senador Único</button>
   <button (click)="setTab('senado-multiple')" [class.active]="tab==='senado-multiple'">Senador Múltiple</button>
@@ -148,10 +148,11 @@
         <div class="titulos">
           <h3 class="subtitulo-popup">{{ popupTituloPartido }}</h3>
         </div>
+        <span class="partido-label">{{ AntiguedadOrganizacion }}</span>  
       </div>
     </div>
-
-    <div class="modal-body">
+    <span class="instruccion">{{ popupComoElegir }}</span>  
+    <div class="modal-body"> 
 
       <!-- POPUP PRESIDENCIAL -->
       <div *ngIf="tipoActual === 'presidencial'">
@@ -183,7 +184,7 @@
               <span class="detalle-candidato-popup-rojo"><strong>Sentencias:</strong></span>
               <span class="detalle-candidato-popup-rojo">{{ partidoActual?.sentenciaPrimerVice }}</span>
             </div>
-          </div>
+          </div> 
 
           <div class="divider"></div>
 
@@ -215,6 +216,7 @@
       <div *ngIf="tipoActual === 'senado-unico'">
         <!-- Si NO está marcado -->
         <div *ngIf="!partidoActual?.marcado">
+          
           <div class="candidato-popup" *ngFor="let c of candidatosPopup" (click)="seleccionarCandidato(c)"
             [class.seleccionado]="esSeleccionado(c)">
             <!-- BLOQUE SUPERIOR -->
