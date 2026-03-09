@@ -884,7 +884,8 @@ export class CedulaVotacion implements OnInit {
     if (!this.partidoActual) return;
 
     this.partidoActual.marcado = false;
-    this.partidoActual.numero = undefined;
+    this.partidoActual.numero1 = undefined;
+    this.partidoActual.numero2 = undefined;
 
     this.cerrarPopup();
   }
