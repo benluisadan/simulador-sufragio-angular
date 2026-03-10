@@ -27,6 +27,12 @@ export const routes: Routes = [
       import('./features/cedula-votacion/cedula-votacion')
         .then(m => m.CedulaVotacion)
   },
+   {
+    path: 'cedulavotacion',
+    loadComponent: () =>
+      import('./features/cedula-sin-registro/cedula-sin-registro')
+        .then(m => m.CedulaSinRegistro)
+  },
   {
     path: 'donar',
     loadComponent: () =>

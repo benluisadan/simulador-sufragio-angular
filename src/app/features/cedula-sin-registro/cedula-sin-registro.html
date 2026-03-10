@@ -1,0 +1,450 @@
+<div class="barra-superior">
+
+  <div class="bs-ubigeo" (click)="abrirPopupUbigeo()">
+    <span class="label">Tu lugar de votación(modificar):</span>
+    <span class="valor">{{ nombreUbigeo }}</span>
+  </div>
+
+  <div class="bs-timer">
+    Tiempo restante: {{ formatearTiempo(timeLeft) }}
+  </div>
+
+  <div class="bs-botones">
+    <button 
+      class="btn-enviar" 
+      [disabled]="!hayVotoRealizado()" 
+      (click)="enviarSimulacion()">
+      Enviar Simulación
+    </button>
+
+    <button class="btn-salir" (click)="irAProcesoElectoral()">
+      Salir
+    </button>
+  </div>
+
+</div>
+
+
+
+<div class="tabs-mobile">
+  <button (click)="setTab('presidencial')" [class.active]="tab==='presidencial'">Presidente</button>
+  <button (click)="setTab('senado-unico')" [class.active]="tab==='senado-unico'">Senador Único</button>
+  <button (click)="setTab('senado-multiple')" [class.active]="tab==='senado-multiple'">Senador Múltiple</button>
+  <button (click)="setTab('diputado')" [class.active]="tab==='diputado'">Diputado</button>
+  <button (click)="setTab('andino')" [class.active]="tab==='andino'">Andino</button>
+</div>
+
+<div class="cedula-container">
+
+  <!-- SECCIÓN: BINOMIO PRESIDENCIAL -->
+  <section class="bloque presidencial" *ngIf="isVisible('presidencial')">
+    <div class="bloque-titulo-cedula">
+      <h3 class="bloque-titulo">PRESIDENTE Y VICEPRESIDENTES</h3>
+    </div>
+
+
+    <div class="partido" *ngFor="let p of partidosPresidenciales" (click)="abrirPopup('presidencial', p)">
+      <div class="fila">
+        <span class="nombre-partido">{{ p.nombre }} </span>
+        <!-- Logo -->
+        <div class="logo-wrapper">
+          <img [src]="p.logopartido" class="logo">
+          <span class="marca-x" *ngIf="p.marcado"></span>
+        </div>
+
+        <!-- Foto del candidato (fondo en casilla) -->
+        <div class="casilla foto" [style.--foto]="'url(' + p.urlfotocandidatopresidencial + ')'">
+          <span class="marca-x-foto" *ngIf="p.marcado"></span>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: SENADOR ÚNICO -->
+  <section class="bloque senado-unico" *ngIf="isVisible('senado-unico')">
+    <div class="bloque-titulo-cedula">
+      <h3 class="bloque-titulo">SENADOR ÚNICO </h3>
+      <br />
+    </div>
+
+    <div class="partido" *ngFor="let p of partidosSenadoUnico" (click)="abrirPopup('senado-unico', p)">
+      <span class="nombre-partido">{{ p.nombre }}</span>
+      <span class="casillas">
+        <div class="logo-wrapper">
+          <img [src]="p.logopartido" class="logo">
+          <span class="marca-x" *ngIf="p.marcado"></span>
+        </div>
+        <span class="casilla">{{ p.numero1 || '' }}</span>
+        <span class="casilla">{{ p.numero2 || '' }}</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: SENADOR MÚLTIPLE -->
+  <section class="bloque senado-multiple" *ngIf="isVisible('senado-multiple')">
+    <div class="bloque-titulo-cedula">
+      <h3 class="bloque-titulo">SENADOR MÚLTIPLE</h3>
+      <br />
+    </div>
+
+    <div class="partido" *ngFor="let p of partidosSenadoMultiple" (click)="abrirPopup('senado-multiple', p)">
+
+      <span class="nombre-partido">{{ p.nombre }}</span>
+      <div class="logo-wrapper">
+        <img [src]="p.logopartido" class="logo">
+        <span class="marca-x" *ngIf="p.marcado"></span>
+      </div>
+      <span class="casilla">{{ p.numero || '' }}</span>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: DIPUTADOS -->
+  <section class="bloque diputados" *ngIf="isVisible('diputado')">
+    <div class="bloque-titulo-cedula">
+      <h3 class="bloque-titulo">DIPUTADO</h3>
+      <br />
+    </div>
+
+    <div class="partido" *ngFor="let p of partidosDiputados" (click)="abrirPopup('diputado', p)">
+
+      <span class="nombre-partido">{{ p.nombre }}</span>
+      <div class="logo-wrapper">
+        <img [src]="p.logopartido" class="logo">
+        <span class="marca-x" *ngIf="p.marcado"></span>
+      </div>
+      <span class="casillas">
+        <span class="casilla">{{ p.numero1 || '' }}</span>
+        <span class="casilla">{{ p.numero2 || '' }}</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: PARLAMENTO ANDINO -->
+  <section class="bloque andino" *ngIf="isVisible('andino')">
+    <div class="bloque-titulo-cedula">
+      <h3 class="bloque-titulo">PARLAMENTO ANDINO</h3>
+      <br />
+    </div>
+
+    <div class="partido" *ngFor="let p of partidosAndinos" (click)="abrirPopup('andino', p)">
+
+      <span class="nombre-partido">{{ p.nombre }}</span>
+      <div class="logo-wrapper">
+        <img [src]="p.logopartido" class="logo">
+        <span class="marca-x" *ngIf="p.marcado"></span>
+      </div>
+      <span class="casillas">
+        <span class="casilla">{{ p.numero1 || '' }}</span>
+        <span class="casilla">{{ p.numero2 || '' }}</span>
+      </span>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- ============================
+     POPUP GENERAL
+     ============================ -->
+<div class="modal" *ngIf="popupVisible">
+  <div class="modal-content">
+    <!-- HEADER FIJO -->
+    <h2 class="titulo-popup">{{ popupTitulo }}</h2>
+    <div class="modal-header">
+      <img *ngIf="logoOrganizacion" [src]="logoOrganizacion" alt="Logo del partido" class="logo-partido-popup" />
+
+      <div class="titulos-contenedor">
+        <div class="titulos">
+          <h3 class="subtitulo-popup">{{ popupTituloPartido }}</h3>
+        </div>
+        <span class="partido-label">{{ AntiguedadOrganizacion }}</span>
+      </div>
+    </div>
+    <span class="instruccion">{{ popupComoElegir }}</span>
+    <div class="modal-body">
+
+      <!-- POPUP PRESIDENCIAL -->
+      <div *ngIf="tipoActual === 'presidencial'">
+
+        <!-- Si NO está marcado -->
+        <div *ngIf="!partidoActual?.marcado" class="popup-presidencial">
+
+          <div class="candidato-item">
+            <img [src]="partidoActual?.urlfotocandidatopresidencial" class="foto-candidato">
+            <div class="candidato-info">
+              <span class="cargo">PRESIDENTE</span>
+              <span class="nombre-candidato-popup">{{ partidoActual?.nombrecandidatopresidencial }}</span>
+              <span class="detalle-candidato-popup"><strong>Exp. Sector Público:</strong></span>
+              <span class="detalle-candidato-popup">{{ partidoActual?.experienciaPublicaPresidencial }}</span>
+              <span class="detalle-candidato-popup-rojo"><strong>Sentencias:</strong></span>
+              <span class="detalle-candidato-popup-rojo">{{ partidoActual?.sentenciaPresidencial }}</span>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="candidato-item">
+            <img [src]="partidoActual?.fotoPrimerVice" class="foto-candidato">
+            <div class="candidato-info">
+              <span class="cargo">PRIMER VICEPRESIDENTE</span>
+              <span class="nombre-candidato-popup">{{ partidoActual?.nombrePrimerVice }}</span>
+              <span class="detalle-candidato-popup"><strong>Exp. Sector Público:</strong></span>
+              <span class="detalle-candidato-popup"> {{ partidoActual?.experienciaPublicaPrimerVice }}</span>
+              <span class="detalle-candidato-popup-rojo"><strong>Sentencias:</strong></span>
+              <span class="detalle-candidato-popup-rojo">{{ partidoActual?.sentenciaPrimerVice }}</span>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="candidato-item">
+            <img [src]="partidoActual?.fotoSegundoVice" class="foto-candidato">
+            <div class="candidato-info">
+              <span class="cargo">SEGUNDO VICEPRESIDENTE</span>
+              <span class="nombre-candidato-popup">{{ partidoActual?.nombreSegundoVice }}</span>
+              <span class="detalle-candidato-popup"><strong>Exp. Sector Público:</strong></span>
+              <span class="detalle-candidato-popup">{{ partidoActual?.experienciaPublicaSegundoVice }}</span>
+              <span class="detalle-candidato-popup-rojo"><strong>Sentencias:</strong></span>
+              <span class="detalle-candidato-popup-rojo">{{ partidoActual?.sentenciaSegundoVice }}</span>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Si SÍ está marcado -->
+        <div *ngIf="partidoActual?.marcado" class="popup-presidencial">
+          <p>Este partido ya está marcado. ¿Deseas deshacer tu voto?</p>
+
+        </div>
+
+      </div>
+      <!-- ============================
+         POPUP SENADOR ÚNICO
+         ============================ -->
+      <div *ngIf="tipoActual === 'senado-unico'">
+        <!-- Si NO está marcado -->
+        <div *ngIf="!partidoActual?.marcado">
+
+          <div class="candidato-popup" *ngFor="let c of candidatosPopup" (click)="seleccionarCandidato(c)"
+            [class.seleccionado]="esSeleccionado(c)">
+            <!-- BLOQUE SUPERIOR -->
+            <div class="bloque-superior">
+              <img [src]="c.foto" class="foto-candidato">
+              <span class="numero-candidato-popup">{{ c.numero }}</span>
+              <div class="info">
+                <span class="nombre-candidato-popup">{{ c.nombre }}</span>
+                <span class="detalle-candidato-popup"><strong>Profesión:</strong></span>
+                <span class="detalle-candidato-popup"> {{ c.profesion }}</span>
+                <span class="detalle-candidato-popup"><strong>Estudios Superiores:</strong> </span>
+                <span class="detalle-candidato-popup"> {{ c.estudioSuperior }} </span>
+
+              </div>
+            </div>
+            <div class="bloque-inferior">
+              <span class="detalle-candidato-popup"><strong>Exp. Sector Publico:</strong></span>
+              <span class="detalle-candidato-popup">{{ c.experienciaPublica }}</span>
+              <span class="detalle-candidato-popup-rojo"><strong>Sentencia:</strong></span>
+              <span class="detalle-candidato-popup-rojo">{{ c.sentencia }} </span>
+            </div>
+          </div>
+        </div>
+        <!-- Si SÍ está marcado -->
+        <div *ngIf="partidoActual?.marcado">
+          <p>Este partido ya está marcado. ¿Deseas deshacer tu voto?</p>
+        </div>
+      </div>
+
+
+      <!-- POPUP SENADOR MÚLTIPLE -->
+      <div *ngIf="tipoActual === 'senado-multiple'">
+        <!-- Si NO está marcado -->
+        <div *ngIf="!partidoActual?.marcado">
+          <div class="candidato-popup" *ngFor="let c of candidatosPopup" (click)="seleccionarCandidato(c)"
+            [class.seleccionado]="esSeleccionado(c)">
+            <!--<img [src]="c.foto" class="foto">
+            <span class="numero">{{ c.numero }}</span>
+            <span class="nombre-candidato-linea">{{ c.nombre }}</span>-->
+            <!-- BLOQUE SUPERIOR -->
+            <div class="bloque-superior">
+              <img [src]="c.foto" class="foto-candidato">
+              <span class="numero-candidato-popup">{{ c.numero }}</span>
+              <div class="info">
+                <span class="nombre-candidato-popup">{{ c.nombre }}</span>
+                <span class="detalle-candidato-popup"><strong>Profesión:</strong></span>
+                <span class="detalle-candidato-popup">{{ c.profesion }}</span>
+                <span class="detalle-candidato-popup"><strong>Estudios Superiores:</strong> </span>
+                <span class="detalle-candidato-popup"> {{ c.estudioSuperior }} </span>
+              </div>
+            </div>
+            <div class="bloque-inferior">
+              <span class="detalle-candidato-popup"><strong>Exp. Sector Publico:</strong></span>
+              <span class="detalle-candidato-popup">{{ c.experienciaPublica }} </span>
+              <span class="detalle-candidato-popup-rojo"><strong>Sentencia:</strong></span>
+              <span class="detalle-candidato-popup-rojo">{{c.sentencia }}</span>
+            </div>
+          </div>
+        </div>
+        <!-- Si SÍ está marcado -->
+        <div *ngIf="partidoActual?.marcado">
+          <p>Este partido ya está marcado. ¿Deseas deshacer tu voto?</p>
+        </div>
+      </div>
+
+      <!-- POPUP DIPUTADOS -->
+      <div *ngIf="tipoActual === 'diputado'">
+
+        <!-- Si NO está marcado -->
+        <div *ngIf="!partidoActual?.marcado">
+
+          <div class="candidato-popup" *ngFor="let c of candidatosPopup" (click)="seleccionarCandidato(c)"
+            [class.seleccionado]="esSeleccionado(c)">
+            <!--  <img [src]="c.foto" class="foto">
+            <span class="numero">{{ c.numero }}</span>
+            <span class="nombre-candidato-linea">{{ c.nombre }}</span>-->
+            <!-- BLOQUE SUPERIOR -->
+            <div class="bloque-superior">
+              <img [src]="c.foto" class="foto-candidato">
+              <span class="numero-candidato-popup">{{ c.numero }}</span>
+              <div class="info">
+                <span class="nombre-candidato-popup">{{ c.nombre }}</span>
+                <span class="detalle-candidato-popup"><strong>Profesión:</strong></span>
+                <span class="detalle-candidato-popup">{{ c.profesion }}</span>
+                <span class="detalle-candidato-popup"><strong>Estudios Superiores:</strong> </span>
+                <span class="detalle-candidato-popup"> {{ c.estudioSuperior }} </span>
+              </div>
+            </div>
+            <div class="bloque-inferior">
+              <span class="detalle-candidato-popup"><strong>Exp. Sector Publico:</strong> </span>
+              <span class="detalle-candidato-popup"> {{ c.experienciaPublica }} </span>
+              <span class="detalle-candidato-popup-rojo"><strong>Sentencia:</strong></span>
+              <span class="detalle-candidato-popup-rojo">{{c.sentencia }} </span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Si SÍ está marcado -->
+        <div *ngIf="partidoActual?.marcado">
+          <p>Este partido ya está marcado. ¿Deseas deshacer tu voto?</p>
+        </div>
+
+      </div>
+
+      <!-- POPUP PARLAMENTO ANDINO -->
+      <div *ngIf="tipoActual === 'andino'">
+
+        <!-- Si NO está marcado -->
+        <div *ngIf="!partidoActual?.marcado">
+
+          <div class="candidato-popup" *ngFor="let c of candidatosPopup" (click)="seleccionarCandidato(c)"
+            [class.seleccionado]="esSeleccionado(c)">
+            <!--  <img [src]="c.foto" class="foto">
+            <div class="info">
+              <span class="numero">{{ c.numero }}</span>
+              <span>{{ c.nombre }}</span>
+            </div>-->
+            <!-- BLOQUE SUPERIOR -->
+            <div class="bloque-superior">
+              <img [src]="c.foto" class="foto-candidato">
+              <span class="numero-candidato-popup">{{ c.numero }}</span>
+              <div class="info">
+                <span class="nombre-candidato-popup">{{ c.nombre }}</span>
+                <span class="detalle-candidato-popup"><strong>Profesión:</strong></span>
+                <span class="detalle-candidato-popup">{{ c.profesion }}</span>
+                <span class="detalle-candidato-popup"><strong>Estudios Superiores:</strong> </span>
+                <span class="detalle-candidato-popup"> {{ c.estudioSuperior }} </span>
+              </div>
+            </div>
+            <div class="bloque-inferior">
+              <span class="detalle-candidato-popup"><strong>Exp. Sector Publico:</strong> </span>
+              <span class="detalle-candidato-popup"> {{ c.experienciaPublica }} </span>
+              <span class="detalle-candidato-popup-rojo"><strong>Sentencia:</strong></span>
+              <span class="detalle-candidato-popup-rojo"> {{c.sentencia }} </span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Si SÍ está marcado -->
+        <div *ngIf="partidoActual?.marcado">
+          <p>Este partido ya está marcado. ¿Deseas deshacer tu voto?</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOOTER FIJO -->
+    <div class="modal-footer" *ngIf="!partidoActual?.marcado">
+      <button class="btn-elegir" (click)="confirmarSeleccion()">Elegir</button>
+      <button class="btn-cerrar" (click)="cerrarPopup()">Cerrar</button>
+    </div>
+    <div class="modal-footer" *ngIf="partidoActual?.marcado">
+      <button class="btn-elegir" (click)="desmarcarPresidencial()"
+        *ngIf="tipoActual === 'presidencial'">Desmarcar</button>
+      <button class="btn-elegir" (click)="desmarcarSenadoUnico()"
+        *ngIf="tipoActual === 'senado-unico'">Desmarcar</button>
+      <button class="btn-elegir" (click)="desmarcarSenadoMultiple()"
+        *ngIf="tipoActual === 'senado-multiple'">Desmarcar</button>
+      <button class="btn-elegir" (click)="desmarcarDiputado()" *ngIf="tipoActual === 'diputado'">Desmarcar</button>
+      <button class="btn-elegir" (click)="desmarcarAndino()" *ngIf="tipoActual === 'andino'">Desmarcar</button>
+
+      <button class="btn-cerrar" (click)="cerrarPopup()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="advertenciaVisible">
+  <div class="modal-content">
+    <h2>¿Sigues ahí?</h2>
+    <p>Tu sesión está por expirar por inactividad.</p>
+    <p>¿Deseas continuar?</p>
+
+    <div class="modal-footer">
+      <button class="btn-elegir" (click)="continuarTiempo()">Continuar</button>
+      <button class="btn-cerrar" (click)="salir()">Salir</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="popupCorreoVisible">
+  <div class="modal-content-correo">
+    <h2>Enviar tu simulación</h2>
+    <p>Ingresa tu correo electrónico para recibir tu cédula simulada.</p>
+
+    <input type="email" [(ngModel)]="correoUsuario" placeholder="tu-correo@ejemplo.com" class="input-correo" />
+
+    <div class="modal-footer">
+      <button class="btn-elegir" (click)="confirmarEnvioCorreo()">Enviar</button>
+      <button class="btn-cerrar" (click)="cerrarPopupCorreo()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="popupUbigeoVisible">
+  <div class="modal-content">
+    <h2>Selecciona tu lugar de votación</h2>
+
+    <label>Departamento</label>
+    <select [(ngModel)]="departamentoSeleccionado" (change)="cargarProvincias()">
+      <option *ngFor="let d of departamentos" [value]="d.id">{{ d.nombre }}</option>
+    </select>
+
+    <label>Provincia</label>
+    <select [(ngModel)]="provinciaSeleccionada" (change)="cargarDistritos()">
+      <option *ngFor="let p of provincias" [value]="p.id">{{ p.nombre }}</option>
+    </select>
+
+    <label>Distrito</label>
+    <select [(ngModel)]="distritoSeleccionado">
+      <option *ngFor="let dis of distritos" [value]="dis.id">{{ dis.nombre }}</option>
+    </select>
+
+    <div class="modal-footer">
+      <button class="btn-elegir" (click)="confirmarUbigeo()">Aceptar</button>
+      <button class="btn-cerrar" (click)="cerrarPopupUbigeo()">Cancelar</button>
+    </div>
+  </div>
+</div>

@@ -71,5 +71,9 @@ export class CedulaService {
     return this.http.get(`${this.baseUrlrv}/${votanteId}`);
   }
 
+  enviarResumenVotoSinRegistro(votanteId: number, correoUsuario: string) {
+    const params = { correo: correoUsuario };
+    return this.http.get(`${this.baseUrlrv}/anonimo/${votanteId}`, { params });
+  }
 
 }

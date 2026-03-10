@@ -19,14 +19,12 @@ export class UbigeoService {
   }
 
   getProvincias(departamentoId: string): Observable<any[]> {
-    //return this.http.get<any[]>(`/api/Ubigeo/provincias/${departamentoId}`);
     return this.http.get<any[]>(`${this.apiUrl}/api/Ubigeo/provincias/${departamentoId}`);
   }
 
 
 
   getDistritos(departamentoId: string, provinciaId: string): Observable<any[]> {
-    // return this.http.get<any[]>(`/api/Ubigeo/distritos/${departamentoId}/${provinciaId}`);
     return this.http.get<any[]>(`${this.apiUrl}/api/Ubigeo/distritos/${departamentoId}/${provinciaId}`);
   }
 
