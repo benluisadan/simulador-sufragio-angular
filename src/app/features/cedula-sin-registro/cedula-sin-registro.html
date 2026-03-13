@@ -40,6 +40,7 @@
   <section class="bloque presidencial" *ngIf="isVisible('presidencial')">
     <div class="bloque-titulo-cedula">
       <h3 class="bloque-titulo">PRESIDENTE Y VICEPRESIDENTES</h3>
+      <span class="instruccion">Seleccionar el partido o candidato de su preferencia.</span>
     </div>
 
 
@@ -66,7 +67,7 @@
   <section class="bloque senado-unico" *ngIf="isVisible('senado-unico')">
     <div class="bloque-titulo-cedula">
       <h3 class="bloque-titulo">SENADOR ÚNICO </h3>
-      <br />
+      <span class="instruccion">Seleccione un partido político para visualizar a sus candidatos.</span>
     </div>
 
     <div class="partido" *ngFor="let p of partidosSenadoUnico" (click)="abrirPopup('senado-unico', p)">
@@ -86,7 +87,7 @@
   <section class="bloque senado-multiple" *ngIf="isVisible('senado-multiple')">
     <div class="bloque-titulo-cedula">
       <h3 class="bloque-titulo">SENADOR MÚLTIPLE</h3>
-      <br />
+       <span class="instruccion">Seleccione un partido político para visualizar a sus candidatos.</span>
     </div>
 
     <div class="partido" *ngFor="let p of partidosSenadoMultiple" (click)="abrirPopup('senado-multiple', p)">
@@ -104,7 +105,7 @@
   <section class="bloque diputados" *ngIf="isVisible('diputado')">
     <div class="bloque-titulo-cedula">
       <h3 class="bloque-titulo">DIPUTADO</h3>
-      <br />
+      <span class="instruccion">Seleccione un partido político para visualizar a sus candidatos.</span>
     </div>
 
     <div class="partido" *ngFor="let p of partidosDiputados" (click)="abrirPopup('diputado', p)">
@@ -125,7 +126,7 @@
   <section class="bloque andino" *ngIf="isVisible('andino')">
     <div class="bloque-titulo-cedula">
       <h3 class="bloque-titulo">PARLAMENTO ANDINO</h3>
-      <br />
+      <span class="instruccion">Seleccione un partido político para visualizar a sus candidatos.</span>
     </div>
 
     <div class="partido" *ngFor="let p of partidosAndinos" (click)="abrirPopup('andino', p)">
@@ -301,10 +302,7 @@
 
           <div class="candidato-popup" *ngFor="let c of candidatosPopup" (click)="seleccionarCandidato(c)"
             [class.seleccionado]="esSeleccionado(c)">
-            <!--  <img [src]="c.foto" class="foto">
-            <span class="numero">{{ c.numero }}</span>
-            <span class="nombre-candidato-linea">{{ c.nombre }}</span>-->
-            <!-- BLOQUE SUPERIOR -->
+           
             <div class="bloque-superior">
               <img [src]="c.foto" class="foto-candidato">
               <span class="numero-candidato-popup">{{ c.numero }}</span>
@@ -341,12 +339,6 @@
 
           <div class="candidato-popup" *ngFor="let c of candidatosPopup" (click)="seleccionarCandidato(c)"
             [class.seleccionado]="esSeleccionado(c)">
-            <!--  <img [src]="c.foto" class="foto">
-            <div class="info">
-              <span class="numero">{{ c.numero }}</span>
-              <span>{{ c.nombre }}</span>
-            </div>-->
-            <!-- BLOQUE SUPERIOR -->
             <div class="bloque-superior">
               <img [src]="c.foto" class="foto-candidato">
               <span class="numero-candidato-popup">{{ c.numero }}</span>

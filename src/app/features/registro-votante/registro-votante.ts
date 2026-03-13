@@ -200,6 +200,9 @@ export class RegistroVotante implements OnInit {
       return;
     }
 
+    let depx = this.form.value.departamento;
+    if (depx.substring(0, 2) === '14') depx = '14';
+    const ubigeo = depx + this.form.value.provincia + this.form.value.distrito;
 
     const correo = this.form.value.correo;
     //const discado = this.form.value.discado.replace('+', '');
@@ -221,7 +224,7 @@ export class RegistroVotante implements OnInit {
             queryParams: {
               procesoId: this.procesoId,
               votanteId: resp.votanteId,
-              ubigeo: resp.ubigeoId
+              ubigeo: ubigeo
             }
           });
         } else {

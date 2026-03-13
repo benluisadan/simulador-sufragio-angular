@@ -895,7 +895,7 @@
   color: #1a1a1a;
   margin-bottom: 1rem;
   line-height: 1.4;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 //Ubigeo
@@ -934,11 +934,13 @@
 }
 
 .ubigeo-label {
+  font-size: 12px;
   font-weight: 600;
   color: #444;
 }
 
 .ubigeo-valor {
+  font-size: 14px;
   font-weight: 700;
   color: #007bff;
   text-decoration: underline;

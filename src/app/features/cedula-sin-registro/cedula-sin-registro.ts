@@ -1100,8 +1100,12 @@ export class CedulaSinRegistro implements OnInit {
   abrirPopupUbigeo() {
     this.popupUbigeoVisible = true;
      const dpto = this.ubigeoId.slice(0, 2);
-    const prov = this.ubigeoId.slice(2, 4);
-    const dist = this.ubigeoId.slice(4, 6);
+     const prov = this.ubigeoId.slice(2, 4);
+     const dist = this.ubigeoId.slice(4, 6);
+    // alert( this.departamentoSeleccionado);
+    // this.departamentos.find(d => d.id === this.departamentoSeleccionado);
+    //  this.cd.detectChanges(); // ← NECESARIO
+     //this.departamentos = this.departamentoSeleccionado
   }
 
   cerrarPopupUbigeo() {

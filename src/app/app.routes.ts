@@ -3,6 +3,11 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'cedulavotacion',
+    pathMatch: 'full'
+  },
+  {
     path: 'inicio',
     loadComponent: () =>
       import('./features/proceso-electoral/proceso-electoral')
@@ -27,7 +32,7 @@ export const routes: Routes = [
       import('./features/cedula-votacion/cedula-votacion')
         .then(m => m.CedulaVotacion)
   },
-   {
+  {
     path: 'cedulavotacion',
     loadComponent: () =>
       import('./features/cedula-sin-registro/cedula-sin-registro')
