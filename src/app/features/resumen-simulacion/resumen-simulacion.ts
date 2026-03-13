@@ -45,7 +45,7 @@ export class ResumenSimulacion {
     const pid = this.cedulaService.getProcesoId();
     this.procesoIdInterno = pid;
 
-    alert(id + '-' + uid + '-' + pid);
+    //alert(id + '-' + uid + '-' + pid);
     this.votanteId = id;
     this.cedulaService.ResumenSimulacion(this.votanteId).subscribe(resp => {
 

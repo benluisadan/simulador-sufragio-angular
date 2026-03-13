@@ -930,7 +930,7 @@ export class CedulaVotacion implements OnInit {
   enviarSimulacion() {
     //this.cedulaService.enviarResumenVoto(this.votanteId).subscribe(); // sin callbacks
     //window.location.href = '/donar';
-    alert(this.ubigeoId);
+    //alert(this.ubigeoId);
     this.cedulaService.setVotanteId(this.votanteId);
     this.cedulaService.setUbigeoId(this.ubigeoId);
     this.cedulaService.setProcesoId(this.procesoId);
