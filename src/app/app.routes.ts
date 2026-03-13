@@ -38,6 +38,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/landing-donaciones/landing-donaciones')
         .then(m => m.LandingDonaciones)
+  },
+  {
+    path: 'resultadosimulacion',
+    loadComponent: () =>
+      import('./features/resumen-simulacion/resumen-simulacion')
+        .then(m => m.ResumenSimulacion)
   }
 
 ];

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { CedulaService } from '../../core/services/cedula.service';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -107,6 +108,7 @@ export class CedulaVotacion implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private cedulaService: CedulaService,
     private cd: ChangeDetectorRef,
     private ngZone: NgZone
@@ -926,8 +928,13 @@ export class CedulaVotacion implements OnInit {
   }
 
   enviarSimulacion() {
-    this.cedulaService.enviarResumenVoto(this.votanteId).subscribe(); // sin callbacks
-    window.location.href = '/donar';
+    //this.cedulaService.enviarResumenVoto(this.votanteId).subscribe(); // sin callbacks
+    //window.location.href = '/donar';
+    alert(this.ubigeoId);
+    this.cedulaService.setVotanteId(this.votanteId);
+    this.cedulaService.setUbigeoId(this.ubigeoId);
+    this.cedulaService.setProcesoId(this.procesoId);
+    this.router.navigate(['/resultadosimulacion']);
   }
 
 

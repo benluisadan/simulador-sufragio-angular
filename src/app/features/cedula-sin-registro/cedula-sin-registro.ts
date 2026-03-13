@@ -10,6 +10,8 @@ import { ChangeDetectorRef } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 
 
@@ -116,8 +118,8 @@ export class CedulaSinRegistro implements OnInit {
     private votanteService: VotanteService,
     private cd: ChangeDetectorRef,
     private ngZone: NgZone,
-    private http: HttpClient   // ← FALTABA ESTO
-
+    private http: HttpClient,  // ← FALTABA ESTO
+    private router: Router
 
   ) { }
 
@@ -1070,13 +1072,13 @@ export class CedulaSinRegistro implements OnInit {
     );
   }
 
-  /*enviarSimulacion() {
-    this.cedulaService.enviarResumenVoto(this.votanteId).subscribe(); // sin callbacks
-    window.location.href = '/donar';
-  }*/
-
   enviarSimulacion() {
     this.popupCorreoVisible = true;
+    this.cedulaService.setVotanteId(this.votanteId);
+    this.cedulaService.setUbigeoId('');
+    this.cedulaService.setProcesoId(0);
+    this.router.navigate(['/resultadosimulacion']);
+
   }
 
   cerrarPopupCorreo() {
@@ -1097,6 +1099,9 @@ export class CedulaSinRegistro implements OnInit {
 
   abrirPopupUbigeo() {
     this.popupUbigeoVisible = true;
+     const dpto = this.ubigeoId.slice(0, 2);
+    const prov = this.ubigeoId.slice(2, 4);
+    const dist = this.ubigeoId.slice(4, 6);
   }
 
   cerrarPopupUbigeo() {
@@ -1161,7 +1166,6 @@ export class CedulaSinRegistro implements OnInit {
     const dep = this.departamentos.find(d => d.id === this.departamentoSeleccionado)?.nombre;
     const prov = this.provincias.find(p => p.id === this.provinciaSeleccionada)?.nombre;
     const dis = this.distritos.find(d => d.id === this.distritoSeleccionado)?.nombre;
-
     return `${dep} / ${prov} / ${dis}`;
   }
 

@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_URL } from '../../app.config';
+import { ResumenItem } from '../models/resumen.simulacion.model';
 
 
 @Injectable({
@@ -75,5 +76,45 @@ export class CedulaService {
     const params = { correo: correoUsuario };
     return this.http.get(`${this.baseUrlrv}/anonimo/${votanteId}`, { params });
   }
+  private votanteIdInterno?: number;
+
+  setVotanteId(id: number) {
+    this.votanteIdInterno = id;
+  }
+
+  getVotanteId(): number | undefined {
+    return this.votanteIdInterno;
+  }
+
+  ResumenSimulacion(votanteId: number) {
+    return this.http.get<{
+      codigoerror: string;
+      mensaje: string;
+      data: ResumenItem[];
+    }>(`${this.baseUrlrv}/Simulacion/${votanteId}`);
+
+  }
+
+  private UbigeoIdInterno?: string;
+
+  setUbigeoId(id: string) {
+    this.UbigeoIdInterno = id;
+  }
+
+  getUbigeoId(): string | undefined {
+    return this.UbigeoIdInterno;
+  }
+
+    private ProcesoIdInterno?: number;
+
+  setProcesoId(id: number) {
+    this.ProcesoIdInterno = id;
+  }
+
+  getProcesoId(): number | undefined {
+    return this.ProcesoIdInterno;
+  }
+
+
 
 }

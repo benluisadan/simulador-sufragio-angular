@@ -1,0 +1,296 @@
+/* Centra todo el contenido en la página */
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* centra horizontal */
+  justify-content: flex-start;
+  /* o center si quieres centrar vertical */
+  width: 100%;
+  min-height: 100vh;
+  /* ocupa toda la pantalla */
+  padding-top: 20px;
+  /* espacio arriba */
+}
+
+.cedula-container {
+  padding: 16px;
+  display: grid;
+  gap: 24px;
+  width: 100%;
+  max-width: 600px;
+  /* en PC llega a 600px, en móvil se adapta */
+  /* Modo celular (una columna) */
+  grid-template-columns: 1fr;
+  align-items: center;
+  /* centra horizontal */
+  justify-content: center;
+  /* opcional: centra vertical */
+
+}
+
+/* Modo tablet o PC (columnas como la cédula real) */
+@media (min-width: 768px) {
+  .cedula-container {
+    grid-template-rows: repeat(5, 1fr);
+  }
+}
+
+.Titulo {
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 12px;
+  align-content: center;
+}
+
+/* ============================
+   COLORES POR SECCIÓN (JNE)
+   ============================ */
+
+/* Presidencial – Amarillo */
+.bloque.presidencial {
+  background: #e6f4ff;
+  border-left: 4px solid #4da3ff;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* Senador Único – Celeste */
+.bloque.senado-unico {
+  background: #ffe9d6;
+  border-left: 4px solid #ff8c42;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* Senador Múltiple – Azul */
+.bloque.senado-multiple {
+  background: #ffe9d1;
+  border-left: 4px solid #ff8c42;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* Diputados – Verde */
+.bloque.diputados {
+  background: #e6ffe6;
+  border-left: 4px solid #4a944a;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* Parlamento Andino – Naranja */
+.bloque.andino {
+  background: #fff7cc;
+  border-left: 4px solid #e6c200;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.bloque-titulo-cedula {
+  background-position: center;
+  width: 100%;
+  text-align: center;
+}
+
+.bloque-titulo {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  align-content: center;
+}
+
+.partido {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 5px;
+  background: #fff;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+
+}
+
+.fila {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.nombre-partido {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: left;
+  line-height: 1.2;
+  flex: 1;
+
+}
+
+.logo-wrapper {
+  position: relative;
+  width: 65px;
+  height: 75px;
+}
+
+.logo-wrapper .logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.logo {
+  width: 65px;
+  height: 75px;
+  object-fit: contain;
+  border: 2px solid #000;
+}
+
+.marca-x {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.marca-x::before,
+.marca-x::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  /* grosor de la línea */
+  height: 120%;
+  /* largo de la línea */
+  background-color: #000;
+  transform-origin: center;
+}
+
+.marca-x::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.marca-x::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.casillas {
+  // display: flex;
+  // gap: 6px;
+  display: flex;
+  flex-direction: row;
+  /* horizontal */
+  gap: 8px;
+  /* espacio entre casillas */
+  align-items: center;
+  /* centra verticalmente */
+
+}
+
+
+.casilla.foto {
+  position: relative;
+  overflow: hidden;
+}
+
+.casilla.foto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--foto);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+  z-index: 0;
+}
+
+.casilla.foto span {
+  position: relative;
+  z-index: 1;
+  transform: rotate(-12deg);
+  font-size: 40px;
+  font-weight: 900;
+}
+
+.casilla {
+  width: 65px;
+  height: 75px;
+  border: 2px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 45px;
+  font-weight: 900;
+  background: #fff;
+
+}
+
+
+/* BOTONES */
+.bs-botones {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  /* centra horizontal */
+  justify-content: flex-start;
+  /* o center si quieres centrar vertical */
+
+}
+
+.btn-donar {
+  width: 100%;
+  padding: 8px 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  background: #e9880a;
+  color: #fff;
+}
+
+.div-boton {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+
+}
+
+.btn-enviar,
+.btn-salir {
+  width: 100%;
+  padding: 8px 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-enviar {
+  background: #28a745;
+  color: #fff;
+}
+
+
+
+.btn-enviar:disabled {
+  background: #9bbfa1;
+  cursor: not-allowed;
+}
+
+.btn-salir {
+
+  background: #dc3545;
+  color: #fff;
+}

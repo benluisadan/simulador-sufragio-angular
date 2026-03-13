@@ -11,7 +11,35 @@ export class VotanteService {
   private http = inject(HttpClient);
   private apiUrl = inject(API_URL);
 
+  private votanteIdInterno?: number;
 
+  setVotanteId(id: number) {
+    this.votanteIdInterno = id;
+  }
+
+  getVotanteId(): number | undefined {
+    return this.votanteIdInterno;
+  }
+
+    private UbigeoIdInterno?: string;
+
+  setUbigeoId(id: string) {
+    this.UbigeoIdInterno = id;
+  }
+
+  getUbigeoId(): string | undefined {
+    return this.UbigeoIdInterno;
+  }
+
+    private ProcesoIdInterno?: number;
+
+  setProcesoId(id: number) {
+    this.ProcesoIdInterno = id;
+  }
+
+  getProcesoId(): number | undefined {
+    return this.ProcesoIdInterno;
+  }
 
   registrarVotante(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/Votantes/registrar`, data);

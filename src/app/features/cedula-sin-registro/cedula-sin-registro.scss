@@ -180,17 +180,18 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0, 0, 0, 0.55);
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  padding: 12px; /* más espacio en móvil */
+  padding: 12px;
+  /* más espacio en móvil */
   z-index: 1000;
 }
 
- 
+
 .foto {
   width: 50px;
   height: 50px;
@@ -285,7 +286,7 @@
   gap: 8px;
   padding: 5px;
   border-bottom: 1px solid #eee;
-  cursor: pointer; 
+  cursor: pointer;
   width: 100%;
 }
 
@@ -321,11 +322,11 @@
 
 .foto-candidato {
   width: 70px;
-  height: 90px; 
- border: 1px solid #000;
+  height: 90px;
+  border: 1px solid #000;
   object-fit: cover;
 }
- 
+
 
 .candidato-info {
   display: flex;
@@ -366,7 +367,7 @@
   font-size: 26px;
   /* X más grande */
 }
-  
+
 /* La X siempre encima del fondo */
 .bloque.presidencial .casilla span {
   font-size: 43px;
@@ -385,26 +386,40 @@
   font-weight: bold;
 }
 
- 
+
 /* La X encima del fondo */
 .bloque.presidencial .casilla span {
   position: relative;
   z-index: 1;
 }
 
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    max-width: 95%;
+  }
+}
+
 .modal-content {
-  width: 100%;
+  width: 90%;
   max-width: 420px;
   max-height: 85vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   border-radius: 12px;
-  padding: 12px;
+  padding: 5px;
   background: #fff;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
+/* Móviles y tablets */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    max-width: 95%;    /* ocupa casi toda la pantalla */
+  }
+}
 
 
 /* HEADER FIJO */
@@ -412,7 +427,7 @@
   padding: 5px 10px;
   margin: 3px;
   font-size: 20px;
-  font-weight: 100%; 
+  font-weight: 100%;
   background: #fff;
   align-content: center;
 }
@@ -459,7 +474,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-   font-size: 60px;
+  font-size: 60px;
   font-family: "Courier New", monospace;
   font-weight: 900;
   font-weight: bold;
@@ -474,13 +489,14 @@
   flex: 1;
   /* ocupa el espacio restante */
 }
+
 .casilla.foto {
   position: relative;
   overflow: hidden;
 }
 
 
- 
+
 .casilla.foto::before {
   content: "";
   position: absolute;
@@ -532,8 +548,10 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 4px;          /* grosor de la línea */
-  height: 120%;        /* largo de la línea */
+  width: 4px;
+  /* grosor de la línea */
+  height: 120%;
+  /* largo de la línea */
   background-color: #000;
   transform-origin: center;
 }
@@ -545,10 +563,13 @@
 .marca-x::after {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
+
 .modal-header {
   display: flex;
-  align-items: center;   /* Centra verticalmente logo + textos */
-  justify-content: center; /* Centra todo el bloque dentro del popup */
+  align-items: center;
+  /* Centra verticalmente logo + textos */
+  justify-content: center;
+  /* Centra todo el bloque dentro del popup */
   gap: 12px;
   padding: 10px;
   border-bottom: 2px solid #ddd;
@@ -560,7 +581,7 @@
   object-fit: contain;
 }
 
-.logo-partido-popup{
+.logo-partido-popup {
   width: 80px;
   height: 70px;
   object-fit: contain;
@@ -570,7 +591,8 @@
 .titulos {
   display: flex;
   flex-direction: column;
-  align-items: center;   /* Centra el texto respecto al logo */
+  align-items: center;
+  /* Centra el texto respecto al logo */
 }
 
 .titulo-popup {
@@ -601,8 +623,10 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 4px;          /* grosor */
-  height: 140%;        /* largo */
+  width: 4px;
+  /* grosor */
+  height: 140%;
+  /* largo */
   background-color: #000;
   transform-origin: center;
 }
@@ -637,19 +661,22 @@
   margin-top: 4px;
   font-size: 1rem;
   font-weight: bold;
-  color: #007bff; /* o el color que quieras */
+  color: #007bff;
+  /* o el color que quieras */
 }
+
 .antiguedad-texto1 {
   margin-top: 4px;
   font-size: 1rem;
   font-weight: bold;
-  color: #e40a0a; /* o el color que quieras */
+  color: #e40a0a;
+  /* o el color que quieras */
 }
 
 
-.detalle-candidato-popup{
-  display:block;
- 
+.detalle-candidato-popup {
+  display: block;
+
   font-size: 13px;
   font-weight: 100%;
   margin: 2;
@@ -657,29 +684,30 @@
   text-align: left;
 }
 
-.detalle-candidato-popup-rojo{
-  display:block;
+.detalle-candidato-popup-rojo {
+  display: block;
   font-size: 13px;
   font-weight: 100%;
   margin: 2;
   color: #8f0303;
   text-align: left;
 }
- 
+
 
 .top-section {
   display: flex;
   flex-direction: row;
-  align-items: flex-start; /* Alinea número, foto e info en la misma línea */
+  align-items: flex-start;
+  /* Alinea número, foto e info en la misma línea */
   gap: 10px;
 }
- 
- 
+
+
 
 /* BLOQUE SUPERIOR */
 .bloque-superior {
   width: 100%;
-  display: flex; 
+  display: flex;
   gap: 6px;
 }
 
@@ -688,14 +716,15 @@
   margin-top: 10px;
   border-top: 0.2 px solid #ccc;
   padding-top: 8px;
-   flex-direction: column;
+  flex-direction: column;
   gap: 4px;
 }
 
 .timer-container {
   width: 100%;
   display: flex;
-  justify-content: flex-end; /* A la derecha */
+  justify-content: flex-end;
+  /* A la derecha */
   align-items: center;
   gap: 12px;
   padding: 10px 15px;
@@ -854,16 +883,19 @@
 .partido-label {
   font-size: 0.75rem;
   font-weight: 600;
-  color: #74688a; /* gris institucional */
+  color: #74688a;
+  /* gris institucional */
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
+
 .instruccion {
   font-size: 1rem;
   font-weight: 500;
   color: #1a1a1a;
   margin-bottom: 1rem;
   line-height: 1.4;
+  font-size: 13px;
 }
 
 //Ubigeo
@@ -911,6 +943,7 @@
   color: #007bff;
   text-decoration: underline;
 }
+
 .modal-content select {
   width: 100%;
   padding: 10px;
@@ -941,11 +974,11 @@
    POPUP CORREO – ESTILO PRO
    ============================ */
 
-.modal-content-correo{
+.modal-content-correo {
   padding: 20px;
   border-radius: 14px;
   background: #ffffff;
-  box-shadow: 0 6px 25px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
   animation: fadeIn 0.25s ease-out;
 }
 
@@ -965,7 +998,7 @@
 }
 
 /* INPUT */
- 
+
 .input-correo {
   width: 100%;
   max-width: 100%;
@@ -974,12 +1007,13 @@
   border-radius: 8px;
   font-size: 15px;
   background: #fff;
-  box-sizing: border-box; /* ← clave */
+  box-sizing: border-box;
+  /* ← clave */
 }
 
 .input-correo:focus {
   border-color: #007bff;
-  box-shadow: 0 0 6px rgba(0,123,255,0.35);
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.35);
   outline: none;
 }
 
@@ -1027,15 +1061,25 @@
 
 /* Animación suave */
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
+
 /* ============================
    BARRA SUPERIOR PROFESIONAL
    ============================ */
 
 .barra-superior {
-  width: 100%;
+  width: 90%;
+ // max-width: 600px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
