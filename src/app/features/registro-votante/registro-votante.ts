@@ -48,15 +48,21 @@ export class RegistroVotante implements OnInit {
 
   ngOnInit(): void {
 
+    // 🔹 Generar DNI y correo por defecto
+    const dniAleatorio = this.generarDniAleatorio();
+    const correoAnonimo = this.generarCorreoAnonimo(dniAleatorio);
+    const celularAnonimo = `9${dniAleatorio}`;
+
+
     this.form = this.fb.group({
-      //dni: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
+      dni: [dniAleatorio, [Validators.required, Validators.pattern(/^\d{8}$/)]],
       departamento: ['', Validators.required],
       provincia: ['', Validators.required],
       distrito: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
+      correo: [correoAnonimo, [Validators.required, Validators.email]],
       //celular: ['', [Validators.required, this.validarCelular.bind(this)]]
       discado: [{ value: '+51', disabled: true }, Validators.required],
-      numeroCelular: ['', [Validators.required, this.validarNumeroCelular.bind(this)]],
+      numeroCelular: [celularAnonimo, [Validators.required, this.validarNumeroCelular.bind(this)]],
       aceptaTratamientoDatos: [false, Validators.requiredTrue]
 
 
@@ -186,7 +192,7 @@ export class RegistroVotante implements OnInit {
     return null;
   }
 
- 
+
 
   enviar() {
     if (this.form.invalid) {
@@ -288,6 +294,15 @@ export class RegistroVotante implements OnInit {
 
   cerrarPopupPrivacidad() {
     this.mostrarPopupPrivacidad = false;
+  }
+
+
+  private generarDniAleatorio(): string {
+    return Math.floor(10000000 + Math.random() * 90000000).toString();
+  }
+
+  private generarCorreoAnonimo(dni: string): string {
+    return `${dni}@anonimo.com.pe`;
   }
 
 
