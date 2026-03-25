@@ -45,6 +45,12 @@ export const routes: Routes = [
         .then(m => m.LandingDonaciones)
   },
   {
+    path: 'EstadisticaSimulacion',
+    loadComponent: () =>
+      import('./features/resultado-electoral/resultado-electoral')
+        .then(m => m.ResultadoElectoral)
+  },
+  {
     path: 'resultadosimulacion',
     loadComponent: () =>
       import('./features/resumen-simulacion/resumen-simulacion')

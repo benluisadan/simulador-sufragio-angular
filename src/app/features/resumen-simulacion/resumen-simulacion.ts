@@ -74,7 +74,7 @@ export class ResumenSimulacion {
         {
           queryParams: {
             procesoId: this.procesoIdInterno,
-            votanteId:  this.votanteId,
+            votanteId: this.votanteId,
             ubigeo: this.ubigeoIdInterno
           }
         }
@@ -99,6 +99,11 @@ export class ResumenSimulacion {
     this.cedulaService.setVotanteId(0);
     this.router.navigate(['/proceso-electoral']);
 
+  }
+  
+  Estadistica() {
+    this.cedulaService.setVotanteId(0);
+    this.router.navigate(['/EstadisticaSimulacion']);
   }
 
 }

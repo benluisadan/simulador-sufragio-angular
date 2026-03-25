@@ -1,0 +1,131 @@
+<div class="contenedor">
+    <div>
+        <div class="bs-botones">
+            <div class="div-boton">
+                <button class="btn-enviar" (click)="irSimulacion()">
+                    Simular Voto
+                </button>
+            </div>
+            <div class="div-boton">
+                <button class="btn-donar" (click)="IrDonar()">
+                    Realizar Donación
+                </button>
+            </div>
+            <div class="div-boton">
+                <button class="btn-salir" (click)="salir()">
+                    Salir
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="bloque presidencial">
+        <h2>RESULTADO SIMULACIÓN PRESIDENCIAL</h2>
+        <!-- TOP (1°, 2°, 3°) -->
+        <div class="top-container">
+            <div class="top-item" *ngFor="let p of topPartidos">
+                <img class="top-logo" [src]="p.logoUrl">
+                <div class="top-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
+                <div class="top-nombre">{{ p.nombre }}</div>
+            </div>
+        </div>
+        <hr>
+        <!-- RESTO (solo logo + porcentaje) -->
+        <div class="resto-grid">
+            <div class="resto-item" *ngFor="let p of otrosPartidos">
+                <img class="resto-logo" [src]="p.logoUrl" class="resto-logo">
+                <div class="resto-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bloque senado-unico">
+        <h2>RESULTADO SIMULACIÓN SENADO ÚNICO</h2>
+
+        <!-- TOP SENADO -->
+        <div class="top-container">
+            <div class="top-item" *ngFor="let p of senadoTop">
+                <img class="top-logo" [src]="p.logoUrl">
+                <div class="top-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
+                <div class="top-nombre">{{ p.nombre }}</div>
+
+            </div>
+        </div>
+        <hr>
+        <!-- RESTO SENADO -->
+        <div class="resto-grid">
+            <div class="resto-item" *ngFor="let p of senadoResto">
+                <img class="resto-logo" [src]="p.logoUrl">
+                <div class="resto-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloque senado-multiple">
+        <h2>RESULTADO SIMULACIÓN SENADO MÚLTIPLE</h2>
+
+        <!-- TOP SENADO MULTIPLE -->
+        <div class="top-container">
+            <div class="top-item" *ngFor="let p of senadoMultipleTop">
+                <img class="top-logo" [src]="p.logoUrl">
+                <div class="top-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
+                <div class="top-nombre">{{ p.nombre }}</div>
+
+            </div>
+        </div>
+        <hr>
+        <!-- RESTO SENADO MULTIPLE-->
+        <div class="resto-grid">
+            <div class="resto-item" *ngFor="let p of senadoMultipleResto">
+                <img class="resto-logo" [src]="p.logoUrl">
+                <div class="resto-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloque diputados">
+        <h2>RESULTADO SIMULACIÓN DIPUTADO</h2>
+
+        <!-- TOP SENADO MULTIPLE -->
+        <div class="top-container">
+            <div class="top-item" *ngFor="let p of diputadoTop">
+                <img class="top-logo" [src]="p.logoUrl">
+                <div class="top-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
+                <div class="top-nombre">{{ p.nombre }}</div>
+                
+            </div>
+        </div>
+        <hr>
+        <!-- RESTO SENADO MULTIPLE-->
+        <div class="resto-grid">
+            <div class="resto-item" *ngFor="let p of diputadoResto">
+                <img class="resto-logo" [src]="p.logoUrl">
+                <div class="resto-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
+            </div>
+        </div>
+    </div>
+    <div class="bloque andino">
+        <h2>RESULTADO PARLAMENTO ANDINO</h2>
+
+        <!-- TOP SENADO MULTIPLE -->
+        <div class="top-container">
+            <div class="top-item" *ngFor="let p of parlamentoAndinoTop">
+                <img class="top-logo" [src]="p.logoUrl">
+                <div class="top-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
+                <div class="top-nombre">{{ p.nombre }}</div>
+                
+            </div>
+        </div>
+        <hr>
+        <!-- RESTO SENADO MULTIPLE-->
+        <div class="resto-grid">
+            <div class="resto-item" *ngFor="let p of parlamentoAndinoResto">
+                <img class="resto-logo" [src]="p.logoUrl">
+                <div class="resto-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
