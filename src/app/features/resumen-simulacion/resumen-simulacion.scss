@@ -16,7 +16,7 @@
 .cedula-container {
   padding: 2px;
   display: grid;
-  gap: 10px;
+  gap: 5px;
   width: 100%;
   max-width: 600px;
   /* en PC llega a 600px, en móvil se adapta */
@@ -115,6 +115,7 @@
 
 }
 
+/*
 .fila {
   display: flex;
   align-items: center;
@@ -123,7 +124,17 @@
   margin-bottom: 3px;
   padding-left: 5px;
   padding-right: 5px;
+}*/
+
+.fila {
+  display: grid;
+  grid-template-columns: 1fr 70px 70px;
+  /* nombre | logo | foto */
+  align-items: center;
+  gap: 8px;
+  width: 100%;
 }
+
 
 .nombre-partido {
   font-size: 20px;
@@ -201,18 +212,23 @@
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
+/*
 .casillas {
-  // display: flex;
-  // gap: 6px;
   display: flex;
   flex-direction: row;
-  /* horizontal */
   gap: 8px;
-  /* espacio entre casillas */
   align-items: center;
-  /* centra verticalmente */
+}*/
 
+.casillas {
+  display: grid;
+  grid-template-columns: repeat(3, 70px);
+  gap: 8px;
+  align-items: center;
 }
+
+
+
 
 
 .casilla.foto {
@@ -408,26 +424,64 @@ button:hover {
 
 
 
-  .col-resumen h2,
+  .col-resumen h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #4c05f1;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .flash-resultado h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #4c05f1;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    text-align: center;
+
+  }
+
   .col-flash h2 {
     font-size: 20px;
     font-weight: 800;
-    color: #003366;
+    //color: #f5f8fa;
     margin-bottom: 15px;
+    margin-top: 15px;
     text-align: center;
   }
 
   .bloque {
-    margin-bottom: 18px;
+    margin-bottom: 4px;
     border-radius: 8px;
-    padding: 12px;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
   }
+
 
 
   .col-flash {
     margin-top: 10px;
     /* separación visual */
     margin-right: 10px;
+  }
+
+  .nombre-partido {
+    font-size: 14px;
+  }
+
+  .bloque-titulo {
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .logo {
+    width: 50px;
+    height: 60px;
+
   }
 }
 
@@ -482,8 +536,9 @@ button:hover {
 
 .top-logo {
   width: 60px;
-  height: 60px;
+  height: 70px;
   object-fit: contain;
+  border: 2px solid #000;
 }
 
 .top-porcentaje {
