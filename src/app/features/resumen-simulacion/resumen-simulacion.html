@@ -1,123 +1,166 @@
-<span class="Titulo">RESUMEN</span>
-
-<div class="cedula-container">
-
-    <!-- SECCIÓN: BINOMIO PRESIDENCIAL -->
-    <section class="bloque presidencial" *ngIf="presidencial">
-        <div class="bloque-titulo-cedula">
-            <h3 class="bloque-titulo">PRESIDENTE Y VICEPRESIDENTES</h3>
+<div class="bs-botones">
+    <div class="div-boton">
+        <button class="btn-salir" (click)="salir()">
+            Salir
+        </button>
+    </div>
+</div>
+<div class="layout">
+    <!-- COLUMNA IZQUIERDA: RESUMEN -->
+    <!-- COLUMNA DERECHA: FLASH -->
+    <div class="col-flash">
+        <!-- FLASH ELECTORAL (contador) -->
+        <div *ngIf="flashActivo" class="flash-electoral">
+            <h2>FLASH ELECTORAL</h2>
+            <div class="flash-numero">{{ contadorFlash }}</div>
         </div>
-        <div class="partido">
-            <div class="fila">
-                <span class="nombre-partido">{{ presidencial.organizacionPolitica }}</span>
-                <!-- Logo -->
-                <div class="logo-wrapper">
-                    <img [src]="presidencial.logoUrl" class="logo">
-                    <span class="marca-x"></span>
-                </div>
-                <!-- Foto del candidato (fondo en casilla) -->
-                <div class="casilla foto" [style.--foto]="'url(' + presidencial.fotoUrl + ')'">
 
+        <!-- RESULTADO DEL FLASH -->
+        <div *ngIf="mostrarFlashResultado" class="flash-resultado">
+            <h2>RESULTADO SIMULACIONES PRESIDENCIAL</h2>
+
+            <div class="top-container">
+                <div class="top-item" *ngFor="let p of topPartidos">
+                    <img class="top-logo" [src]="p.logoUrl">
+                    <div class="top-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
+                    <div class="top-nombre">{{ p.nombre }}</div>
+                </div>
+            </div>
+            <div class="bs-botones">
+                <div class="div-boton">
+                    <button class="btn-Estadistica" (click)="Estadistica()">
+                         Detalle Estadistica Simulaciones
+                    </button>
+                </div>
+
+                <div class="div-boton">
+                    <button class="btn-donar" (click)="IrDonar()">
+                        Realizar Donación
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-resumen">
+        <div class="resumen-resultado">
+            <!-- aquí va TODO tu resumen actual-->
+            <span class="Titulo">
+                <h2>RESUMEN DE TÚ SIMULACIÓN</h2>
+            </span>
+            <div class="cedula-container">
+
+                <!-- SECCIÓN: BINOMIO PRESIDENCIAL -->
+                <section class="bloque presidencial" *ngIf="presidencial">
+                    <div class="bloque-titulo-cedula">
+                        <h3 class="bloque-titulo">PRESIDENTE Y VICEPRESIDENTES</h3>
+                    </div>
+                    <div class="partido">
+                        <div class="fila">
+                            <span class="nombre-partido">{{ presidencial.organizacionPolitica }}</span>
+                            <!-- Logo -->
+                            <div class="logo-wrapper">
+                                <img [src]="presidencial.logoUrl" class="logo">
+                                <span class="marca-x"></span>
+                            </div>
+                            <!-- Foto del candidato (fondo en casilla) -->
+                            <div class="casilla foto" [style.--foto]="'url(' + presidencial.fotoUrl + ')'">
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECCIÓN: SENADOR ÚNICO -->
+                <section class="bloque senado-unico" *ngIf="senadoUnico">
+                    <div class="bloque-titulo-cedula">
+                        <h3 class="bloque-titulo">SENADOR ÚNICO </h3>
+
+                    </div>
+
+                    <div class="partido">
+                        <span class="nombre-partido">{{ senadoUnico.organizacionPolitica }}</span>
+                        <span class="casillas">
+                            <div class="logo-wrapper">
+                                <img [src]="senadoUnico.logoUrl" class="logo">
+                                <span class="marca-x"></span>
+                            </div>
+                            <span class="casilla">{{ senadoUnico.preferencia1 || '' }}</span>
+                            <span class="casilla">{{ senadoUnico.preferencia2 || ''}}</span>
+                        </span>
+                    </div>
+                </section>
+
+                <!-- SECCIÓN: SENADOR MÚLTIPLE -->
+                <section class="bloque senado-multiple" *ngIf="senadoMultiple">
+                    <div class="bloque-titulo-cedula">
+                        <h3 class="bloque-titulo">SENADOR MÚLTIPLE</h3>
+
+                    </div>
+                    <div class="partido">
+                        <span class="nombre-partido">{{ senadoMultiple.organizacionPolitica }}</span>
+                        <span class="casillas">
+                            <div class="logo-wrapper">
+                                <img [src]="senadoMultiple.logoUrl" class="logo">
+                                <span class="marca-x"></span>
+                            </div>
+                            <span class="casilla">{{ senadoMultiple.preferencia1 || '' }}</span>
+                        </span>
+                    </div>
+                </section>
+
+                <!-- SECCIÓN: DIPUTADOS diputado -->
+                <section class="bloque diputados" *ngIf="diputado">
+                    <div class="bloque-titulo-cedula">
+                        <h3 class="bloque-titulo">DIPUTADO</h3>
+                    </div>
+
+                    <div class="partido">
+                        <span class="nombre-partido">{{ diputado.organizacionPolitica }}</span>
+                        <span class="casillas">
+                            <div class="logo-wrapper">
+                                <img [src]="diputado.logoUrl" class="logo">
+                                <span class="marca-x"></span>
+                            </div>
+                            <span class="casilla">{{ diputado.preferencia1 || '' }}</span>
+                            <span class="casilla">{{ diputado.preferencia2 || '' }}</span>
+                        </span>
+                    </div>
+                </section>
+
+                <!-- SECCIÓN: PARLAMENTO ANDINO andino -->
+                <section class="bloque andino" *ngIf="andino">
+                    <div class="bloque-titulo-cedula">
+                        <h3 class="bloque-titulo">PARLAMENTO ANDINO</h3>
+                    </div>
+
+                    <div class="partido">
+                        <span class="nombre-partido">{{ andino.organizacionPolitica }}</span>
+                        <span class="casillas">
+                            <div class="logo-wrapper">
+                                <img [src]="andino.logoUrl" class="logo">
+                                <span class="marca-x"></span>
+                            </div>
+                            <span class="casilla">{{ andino.preferencia1 || '' }}</span>
+                            <span class="casilla">{{ andino.preferencia2 || '' }}</span>
+                        </span>
+                    </div>
+                </section>
+                <div class="bs-botones">
+
+                    <div class="div-boton">
+                        <button class="btn-enviar" (click)="irSimulacion()">
+                            Volver a Simular voto
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- SECCIÓN: SENADOR ÚNICO -->
-    <section class="bloque senado-unico" *ngIf="senadoUnico">
-        <div class="bloque-titulo-cedula">
-            <h3 class="bloque-titulo">SENADOR ÚNICO </h3>
 
-        </div>
-
-        <div class="partido">
-            <span class="nombre-partido">{{ senadoUnico.organizacionPolitica }}</span>
-            <span class="casillas">
-                <div class="logo-wrapper">
-                    <img [src]="senadoUnico.logoUrl" class="logo">
-                    <span class="marca-x"></span>
-                </div>
-                <span class="casilla">{{ senadoUnico.preferencia1 || '' }}</span>
-                <span class="casilla">{{ senadoUnico.preferencia2 || ''}}</span>
-            </span>
-        </div>
-    </section>
-
-    <!-- SECCIÓN: SENADOR MÚLTIPLE -->
-    <section class="bloque senado-multiple" *ngIf="senadoMultiple">
-        <div class="bloque-titulo-cedula">
-            <h3 class="bloque-titulo">SENADOR MÚLTIPLE</h3>
-
-        </div>
-        <div class="partido">
-            <span class="nombre-partido">{{ senadoMultiple.organizacionPolitica }}</span>
-            <span class="casillas">
-                <div class="logo-wrapper">
-                    <img [src]="senadoMultiple.logoUrl" class="logo">
-                    <span class="marca-x"></span>
-                </div>
-                <span class="casilla">{{ senadoMultiple.preferencia1 || '' }}</span>
-            </span>
-        </div>
-    </section>
-
-    <!-- SECCIÓN: DIPUTADOS diputado -->
-    <section class="bloque diputados" *ngIf="diputado">
-        <div class="bloque-titulo-cedula">
-            <h3 class="bloque-titulo">DIPUTADO</h3>
-        </div>
-
-        <div class="partido">
-            <span class="nombre-partido">{{ diputado.organizacionPolitica }}</span>
-            <span class="casillas">
-                <div class="logo-wrapper">
-                    <img [src]="diputado.logoUrl" class="logo">
-                    <span class="marca-x"></span>
-                </div>
-                <span class="casilla">{{ diputado.preferencia1 || '' }}</span>
-                <span class="casilla">{{ diputado.preferencia2 || '' }}</span>
-            </span>
-        </div>
-    </section>
-
-    <!-- SECCIÓN: PARLAMENTO ANDINO andino -->
-    <section class="bloque andino" *ngIf="andino">
-        <div class="bloque-titulo-cedula">
-            <h3 class="bloque-titulo">PARLAMENTO ANDINO</h3>
-        </div>
-
-        <div class="partido">
-            <span class="nombre-partido">{{ andino.organizacionPolitica }}</span>
-            <span class="casillas">
-                <div class="logo-wrapper">
-                    <img [src]="andino.logoUrl" class="logo">
-                    <span class="marca-x"></span>
-                </div>
-                <span class="casilla">{{ andino.preferencia1 || '' }}</span>
-                <span class="casilla">{{ andino.preferencia2 || '' }}</span>
-            </span>
-        </div>
-    </section>
-    <div class="bs-botones">
-        <div class="div-boton">
-            <button class="btn-Estadistica" (click)="Estadistica()">
-                Estadistica Simulaciones
-            </button>
-        </div>
-        <div class="div-boton">
-            <button class="btn-enviar" (click)="irSimulacion()">
-                Volver a Simular voto
-            </button>
-        </div>
-        <div class="div-boton">
-            <button class="btn-donar" (click)="IrDonar()">
-                Realizar Donación
-            </button>
-        </div>
-        <div class="div-boton">
-            <button class="btn-salir" (click)="salir()">
-                Salir
-            </button>
-        </div>
     </div>
+
+
 </div>

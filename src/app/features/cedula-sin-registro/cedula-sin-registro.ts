@@ -1038,7 +1038,7 @@ export class CedulaSinRegistro implements OnInit {
   }
 
   salir() {
-    window.location.href = '/proceso-electoral';
+    window.location.href = '/donar';
   }
 
   formatearTiempo(segundos: number): string {
@@ -1054,7 +1054,7 @@ export class CedulaSinRegistro implements OnInit {
   }
 
   irAProcesoElectoral() {
-    window.location.href = '/proceso-electoral';
+    window.location.href = '/donar';
   }
 
   isVisible(tipo: string) {

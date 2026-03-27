@@ -313,3 +313,51 @@ h2 {
   background: #dc3545;
   color: #fff;
 }
+
+/* ============================
+   RESPONSIVE PARA EL BLOQUE TOP
+   ============================ */
+
+@media (max-width: 768px) {
+  .top-container {
+    flex-wrap: wrap;        /* permite que los items bajen */
+    gap: 20px;              /* reduce espacio */
+  }
+
+  .top-item {
+    width: 120px;           /* más pequeño para móvil */
+  }
+
+  .top-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .top-porcentaje {
+    font-size: 20px;
+  }
+
+  .top-nombre {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-container {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .top-item {
+    width: 100px;
+  }
+
+  .top-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .top-porcentaje {
+    font-size: 18px;
+  }
+}

@@ -31,3 +31,24 @@
   font-weight: 700;
   text-align: center;
 }
+
+.pie-pagina {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 40px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  position: relative;
+}
+
+.pie-pagina::before {
+  content: "";
+  width: 60%;
+  height: 1px;
+  background: #ccc;
+  position: absolute;
+  top: 0;
+  left: 20%;
+}

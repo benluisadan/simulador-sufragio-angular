@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-resultado-electoral',
   standalone: true,
   imports: [CommonModule],
+  
   templateUrl: './resultado-electoral.html',
   styleUrl: './resultado-electoral.scss',
 })
@@ -44,9 +45,13 @@ export class ResultadoElectoral implements OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
-     private router: Router,
+    private router: Router,
     private estadisticasService: ResultadoService
   ) { }
+
+
+
+
 
   ngOnInit(): void {
     this.estadisticasService.getEstadisticasPresidencial()
@@ -145,8 +150,8 @@ export class ResultadoElectoral implements OnInit {
 
         this.cdr.detectChanges(); // ← ESTA LÍNEA ES LA CLAVE
       });
-  }
 
+  }
 
   irSimulacion() {
     //alert(this.ubigeoIdInterno);
@@ -158,7 +163,7 @@ export class ResultadoElectoral implements OnInit {
 
   }
   salir() {
-    this.router.navigate(['/proceso-electoral']);
+    this.router.navigate(['/donar']);
 
   }
 

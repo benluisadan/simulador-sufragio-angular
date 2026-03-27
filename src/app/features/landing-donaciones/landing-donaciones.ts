@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 export class LandingDonaciones {
 
   volverAProcesoElectoral() {
-    window.location.href = '/proceso-electoral';
+    window.location.href = '/cedulavotacion';
   }
 
 

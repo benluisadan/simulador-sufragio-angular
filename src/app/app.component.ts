@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
-  title = 'simuladorsufragio.web.angular';
+  title = 'simulador de sufragio - independiente';
 }

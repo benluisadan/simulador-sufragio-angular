@@ -893,7 +893,7 @@ export class CedulaVotacion implements OnInit {
   }
 
   salir() {
-    window.location.href = '/proceso-electoral';
+    window.location.href = '/donar';
   }
 
   formatearTiempo(segundos: number): string {
@@ -909,7 +909,7 @@ export class CedulaVotacion implements OnInit {
   }
 
   irAProcesoElectoral() {
-    window.location.href = '/proceso-electoral';
+    window.location.href = '/donar';
   }
 
   isVisible(tipo: string) {

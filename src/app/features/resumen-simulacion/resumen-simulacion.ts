@@ -5,10 +5,13 @@ import { ActivatedRoute } from '@angular/router';
 import { ResumenItem } from '../../core/models/resumen.simulacion.model';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { ResultadoService } from '../../core/services/resultado.service';
+import { EstadisticaPresidencial } from '../../core/models/resultado-electoral.models';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-resumen-simulacion',
-  imports: [NgIf],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './resumen-simulacion.html',
   styleUrl: './resumen-simulacion.scss',
 })
@@ -18,6 +21,7 @@ export class ResumenSimulacion {
   constructor(
     private route: ActivatedRoute,
     private cedulaService: CedulaService,
+    private estadisticasService: ResultadoService,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) { }
@@ -31,6 +35,17 @@ export class ResumenSimulacion {
   senadoMultiple?: ResumenItem;
   diputado?: ResumenItem;
   andino?: ResumenItem;
+
+  //FLASH
+  flashActivo: boolean = true;          // Muestra el bloque Flash Electoral
+  mostrarFlashResultado: boolean = false; // Muestra el resultado del Flash
+  contadorFlash: number = 10;
+
+
+  // presidencial
+  partidos: EstadisticaPresidencial[] = [];
+  topPartidos: EstadisticaPresidencial[] = [];
+  otrosPartidos: EstadisticaPresidencial[] = [];
 
 
   ngOnInit() {
@@ -48,8 +63,6 @@ export class ResumenSimulacion {
     //alert(id + '-' + uid + '-' + pid);
     this.votanteId = id;
     this.cedulaService.ResumenSimulacion(this.votanteId).subscribe(resp => {
-
-
       if (resp.codigoerror === "0000") {
         this.resumen = resp.data;
 
@@ -62,6 +75,93 @@ export class ResumenSimulacion {
         this.cdr.detectChanges(); // ← ESTA LÍNEA ES LA CLAVE
       }
     });
+
+    this.iniciarCicloFlash();
+
+  }
+
+  /*
+    iniciarCicloFlash() {
+      this.flashActivo = true;
+      this.mostrarFlashResultado = false;
+      this.contadorFlash = 10;
+      this.cdr.detectChanges(); // ← ESTA LÍNEA ES LA CLAVE
+      const intervalo = setInterval(() => {
+        this.contadorFlash--;
+        if (this.contadorFlash === 0) {
+          clearInterval(intervalo);
+  
+          setTimeout(() => {
+            this.flashActivo = false;
+            this.mostrarFlashResultado = true;
+            this.cdr.detectChanges(); // ← NECESARIO
+  
+            // cargar resultados
+            this.estadisticasService.getEstadisticasPresidencial()
+              .subscribe(data => {
+                this.partidos = data.sort((a, b) => b.porcentajeVotos - a.porcentajeVotos);
+                this.topPartidos = this.partidos.slice(0, 2);
+                this.otrosPartidos = this.partidos.slice(2);
+                this.cdr.detectChanges(); // ← NECESARIO
+              });
+  
+            // mantener resultado 30s
+            setTimeout(() => {
+              this.mostrarFlashResultado = false;
+              this.cdr.detectChanges(); // ← NECESARIO
+              this.iniciarCicloFlash();
+            }, 30000);
+  
+          }, 2000);
+        }
+      }, 1000);
+    }
+  
+  */
+
+  iniciarCicloFlash() {
+    this.flashActivo = true;
+    this.mostrarFlashResultado = false;
+
+    this.contadorFlash = 10;
+    this.cdr.detectChanges(); // ← pinta el 10 inmediatamente
+
+    setTimeout(() => {
+      this.iniciarIntervaloFlash();
+    });
+  }
+
+
+  iniciarIntervaloFlash() {
+    const intervalo = setInterval(() => {
+      this.contadorFlash--;
+      this.cdr.detectChanges();
+
+      if (this.contadorFlash === 0) {
+        clearInterval(intervalo);
+        this.mostrarResultadoFlash();
+      }
+    }, 1000);
+  }
+
+
+  mostrarResultadoFlash() {
+    this.flashActivo = false;
+    this.mostrarFlashResultado = true;
+    this.cdr.detectChanges();
+
+    this.estadisticasService.getEstadisticasPresidencial()
+      .subscribe(data => {
+        this.partidos = data.sort((a, b) => b.porcentajeVotos - a.porcentajeVotos);
+        this.topPartidos = this.partidos.slice(0, 2);
+        this.otrosPartidos = this.partidos.slice(2);
+        this.cdr.detectChanges();
+      });
+
+    setTimeout(() => {
+      this.mostrarFlashResultado = false;
+      this.iniciarCicloFlash();
+    }, 30000);
   }
 
   irSimulacion() {
@@ -97,10 +197,10 @@ export class ResumenSimulacion {
   }
   salir() {
     this.cedulaService.setVotanteId(0);
-    this.router.navigate(['/proceso-electoral']);
+    this.router.navigate(['/donar']);
 
   }
-  
+
   Estadistica() {
     this.cedulaService.setVotanteId(0);
     this.router.navigate(['/EstadisticaSimulacion']);
