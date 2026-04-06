@@ -172,7 +172,7 @@
         <!-- Si NO está marcado -->
         <div *ngIf="!partidoActual?.marcado" class="popup-presidencial">
 
-          <div class="candidato-item">
+          <div class="candidato-item"  *ngIf="partidoActual?.dniPresidencial">
             <img [src]="partidoActual?.urlfotocandidatopresidencial" class="foto-candidato">
             <div class="candidato-info">
               <span class="cargo">PRESIDENTE</span>
@@ -186,7 +186,7 @@
 
           <div class="divider"></div>
 
-          <div class="candidato-item">
+          <div class="candidato-item" *ngIf="partidoActual?.dniPrimerVice">
             <img [src]="partidoActual?.fotoPrimerVice" class="foto-candidato">
             <div class="candidato-info">
               <span class="cargo">PRIMER VICEPRESIDENTE</span>
@@ -200,7 +200,7 @@
 
           <div class="divider"></div>
 
-          <div class="candidato-item">
+          <div class="candidato-item" *ngIf="partidoActual?.dniSegundoVice">
             <img [src]="partidoActual?.fotoSegundoVice" class="foto-candidato">
             <div class="candidato-info">
               <span class="cargo">SEGUNDO VICEPRESIDENTE</span>

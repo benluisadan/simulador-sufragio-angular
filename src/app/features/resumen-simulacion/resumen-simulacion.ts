@@ -203,7 +203,8 @@ export class ResumenSimulacion {
 
   Estadistica() {
     this.cedulaService.setVotanteId(0);
-    this.router.navigate(['/EstadisticaSimulacion']);
+    alert('Ley Orgánica de Elecciones (Ley 26859) - Prohíbe publicar o difundir encuestas electorales (intención de voto, simulacros, etc.). Si es de tu interes los resultados puedes escribirnos al correo elecciones26peru@gmail.com ')
+    //this.router.navigate(['/EstadisticaSimulacion']);
   }
 
 }
