@@ -206,13 +206,14 @@ export class CedulaSegundaVuelta {
   async inicializarVotanteAnonimo() {
 
     // 1. Obtener IP
+
     this.obtenerIpPublica();
 
 
     const votanteGuardado = sessionStorage.getItem("votanteAnonimo");
     if (votanteGuardado) {
       this.votanteId = Number(votanteGuardado);
-      return; // ← ya está listo
+      return; // ← ya 
     }   
 
     // 2. Registrar votante
