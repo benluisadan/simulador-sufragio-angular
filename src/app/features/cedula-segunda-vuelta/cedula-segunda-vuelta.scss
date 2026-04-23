@@ -12,7 +12,7 @@
     border-left: 4px solid #f7f7f7;
     padding: 3px;
     position: relative;
-    
+
 }
 
 /*
@@ -54,7 +54,7 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 5px;
- 
+
 }
 
 .partido {
@@ -120,7 +120,7 @@
     padding-bottom: 5px;
     padding-top: 5px;
     width: 100%;
-     background: #929496;
+    background: #929496;
 }
 
 
@@ -220,7 +220,9 @@
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
-
+    align-items: center;
+    justify-items: center;
+    /* ← CENTRA LOS BOTONES */
 }
 
 .div-botonsalir {
@@ -245,7 +247,8 @@ button:hover {
 
 //btn-blanco  
 .btn-blanco {
-    width: 100%;
+    width: 120px;
+    height: 120px;
     padding: 8px 8px;
     border: none;
     border-radius: 6px;
@@ -253,14 +256,15 @@ button:hover {
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
-background: #252525;
+    background: #252525;
     color: #ffffff;
     margin-bottom: 3px;
 }
 
 //btn-nulo
 .btn-nulo {
-    width: 100%;
+    width: 120px;
+    height: 120px;
     padding: 8px 8px;
     border: none;
     border-radius: 6px;
@@ -285,6 +289,19 @@ background: #252525;
     background: #047e18;
     color: #fff;
     margin-top: 5px;
+}
+
+.btn-resultadoestaidistica:disabled {
+    opacity: 0.4;
+    /* Se ve más claro */
+    cursor: not-allowed;
+    /* Cursor bloqueado */
+    background-color: #cccccc;
+    /* Fondo gris */
+    color: #666666;
+    /* Texto gris */
+    border-color: #aaaaaa;
+    /* Borde gris */
 }
 
 .btn-salir {
@@ -354,8 +371,24 @@ background: #252525;
     border-color: #0078ff;
     box-shadow: 0 0 0 3px rgba(0, 120, 255, 0.2);
 }
-.BotoneraVotosAdicionales{
+
+.BotoneraVotosAdicionales {
+    align-items: center;
+    justify-items: center;
+    /* ← CENTRA LOS BOTONES */
     margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.BotoneraVotosAdicionales .div-boton {
+    width: auto;          /* ← evita que ocupe todo el ancho */
+    margin: 0 auto;       /* ← centra el contenedor */
+    display: flex;        /* ← permite centrar el botón */
+    justify-content: center;
 }
 
 

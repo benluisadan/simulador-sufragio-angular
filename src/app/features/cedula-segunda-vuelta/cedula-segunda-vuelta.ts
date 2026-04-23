@@ -40,6 +40,7 @@ export class CedulaSegundaVuelta {
   opcionesNormales = signal<OpcionSegundaVuelta[]>([]);
 
   nuloGlobal = signal(false);
+  botonResultadoHabilitado = signal(false);
   constructor(
     private cedulaService: CedulaService,
     private ubigeoService: UbigeoService,
@@ -128,7 +129,7 @@ export class CedulaSegundaVuelta {
         nulo: false
       }))
     );
-
+    this.botonResultadoHabilitado.set(true); // ← ACTIVAR
     this.cedulaService.votarPresidencial({
       votanteId: this.votanteId,
       eleccionId: 20,
@@ -149,7 +150,7 @@ export class CedulaSegundaVuelta {
         nulo: false
       }))
     );
-
+ this.botonResultadoHabilitado.set(true); // ← ACTIVAR
     this.cedulaService.votarPresidencialbnv({
       votanteId: this.votanteId,
       eleccionId: 20,
@@ -191,6 +192,8 @@ export class CedulaSegundaVuelta {
       }))
     );
 
+    this.botonResultadoHabilitado.set(true); // ← ACTIVAR
+    
     this.cedulaService.votarPresidencialbnv({
       votanteId: this.votanteId,
       eleccionId: 20,

@@ -59,7 +59,8 @@
                     </div>
 
                     <!-- FOTO -->
-                    <div loading="lazy" class="casilla foto" [style.background-image]="'url(' + p.presidenteFotoUrl + ')'" >
+                    <div loading="lazy" class="casilla foto"
+                        [style.background-image]="'url(' + p.presidenteFotoUrl + ')'">
 
                         @if (p.marcado) {
                         <span class="marca-x-foto"></span>
@@ -86,14 +87,15 @@
             <div class="div-boton">
                 <button class="btn-nulo" (click)="votarNulo()">Votar Nulo</button>
             </div>
-            <div class="div-boton">
-                <button class="btn-resultadoestaidistica" (click)="enviarSimulacion()">
-                    Ver Resultado y Estadistica 
-                </button>
-            </div>
+
 
         </div>
-
+        <div class="div-boton">
+            <button class="btn-resultadoestaidistica" (click)="enviarSimulacion()"
+                [disabled]="!botonResultadoHabilitado()">
+                Ver Resultado y Estadistica
+            </button>
+        </div>
     </div>
 
 </div>
