@@ -19,21 +19,21 @@
         <div *ngIf="mostrarFlashResultado" class="flash-resultado">
             <h3>RESULTADO SIMULACIONES PRESIDENCIAL</h3>
 
-            <h2>Artículo 191 – Ley Orgánica de Elecciones (Ley 26859)</h2>
+        <!--    <h2>Artículo 191 – Ley Orgánica de Elecciones (Ley 26859)</h2>
             <ul>
                 <li> Prohíbe publicar o difundir encuestas electorales (intención de voto, simulacros, etc.)</li>
                 <li> La prohibición inicia desde el lunes anterior al día de la elección.</li>
                 <li> Dura toda la semana previa hasta el cierre de votación.</li>
-            </ul>
+            </ul>-->
 
 
-            <!--<div class="top-container">
+            <div class="top-container">
                 <div class="top-item" *ngFor="let p of topPartidos">
                     <img class="top-logo" [src]="p.logoUrl">
                     <div class="top-porcentaje">{{ p.porcentajeVotos | number:'1.2-2' }}%</div>
                     <div class="top-nombre">{{ p.nombre }}</div>
                 </div>
-            </div>-->
+            </div>
             <div class="bs-botones">
                 <div class="div-boton">
                     <button class="btn-Estadistica" (click)="Estadistica()">

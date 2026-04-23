@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ResultadoService } from '../../core/services/resultado.service';
 import { EstadisticaPresidencial } from '../../core/models/resultado-electoral.models';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-resumen-simulacion',
   standalone: true,
@@ -26,15 +27,17 @@ export class ResumenSimulacion {
     private router: Router
   ) { }
 
-  votanteId?: number;
-  ubigeoIdInterno?: string;
-  procesoIdInterno?: number;
+  votanteId: number = 0;
+  ubigeoIdInterno: string = '000000';
+  procesoIdInterno: number = 0;
   resumen: ResumenItem[] = [];
   presidencial?: ResumenItem;
   senadoUnico?: ResumenItem;
   senadoMultiple?: ResumenItem;
   diputado?: ResumenItem;
   andino?: ResumenItem;
+
+  fromPage: string = '/';
 
   //FLASH
   flashActivo: boolean = true;          // Muestra el bloque Flash Electoral
@@ -49,16 +52,21 @@ export class ResumenSimulacion {
 
 
   ngOnInit() {
+    const nav = this.router.currentNavigation();
+    this.fromPage = nav?.extras.state?.['from'] ?? '/';
+    console.log('FROM:', this.fromPage);
+    console.log('Vengo desde:', this.fromPage);
 
     const id = this.cedulaService.getVotanteId();
     if (!id) {
       return;
     }
     const uid = this.cedulaService.getUbigeoId();
-    this.ubigeoIdInterno = uid;
+    this.ubigeoIdInterno = uid ?? '';
 
     const pid = this.cedulaService.getProcesoId();
-    this.procesoIdInterno = pid;
+    //this.procesoIdInterno = pid;
+    this.procesoIdInterno = pid ?? 0;
 
     //alert(id + '-' + uid + '-' + pid);
     this.votanteId = id;
@@ -149,8 +157,8 @@ export class ResumenSimulacion {
     this.flashActivo = false;
     this.mostrarFlashResultado = true;
     this.cdr.detectChanges();
-
-    this.estadisticasService.getEstadisticasPresidencial()
+    //this.procesoIdInterno = 1;
+    this.estadisticasService.getEstadisticasPresidencial(this.procesoIdInterno)
       .subscribe(data => {
         this.partidos = data.sort((a, b) => b.porcentajeVotos - a.porcentajeVotos);
         this.topPartidos = this.partidos.slice(0, 2);
@@ -166,6 +174,9 @@ export class ResumenSimulacion {
 
   irSimulacion() {
     //alert(this.ubigeoIdInterno);
+    //alert(this.fromPage);
+    this.router.navigate([this.fromPage ?? '/default']);
+
     if ((this.ubigeoIdInterno?.length ?? 0) > 0) {
       //this.router.navigate(['/cedula-votacion?procesoId=' + this.procesoIdInterno + '&votanteId=' + this.votanteId + '&ubigeo=' + this.ubigeoIdInterno]);
       //http://localhost:4200/cedula-votacion?procesoId=1&votanteId=1&ubigeo=140101
@@ -203,8 +214,14 @@ export class ResumenSimulacion {
 
   Estadistica() {
     this.cedulaService.setVotanteId(0);
-    alert('Ley Orgánica de Elecciones (Ley 26859) - Prohíbe publicar o difundir encuestas electorales (intención de voto, simulacros, etc.). Si es de tu interes los resultados puedes escribirnos al correo elecciones26peru@gmail.com ')
+    //alert('Ley Orgánica de Elecciones (Ley 26859) - Prohíbe publicar o difundir encuestas electorales (intención de voto, simulacros, etc.). Si es de tu interes los resultados puedes escribirnos al correo elecciones26peru@gmail.com ')
     //this.router.navigate(['/EstadisticaSimulacion']);
+    sessionStorage.setItem('procesoElectoralId', this.procesoIdInterno.toString());
+    //alert(this.procesoIdInterno);
+    this.router.navigate(['/EstadisticaSimulacion'], {
+      state: { valor: this.procesoIdInterno.toString() }
+    });
+
   }
 
 }

@@ -115,16 +115,6 @@
 
 }
 
-/*
-.fila {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  margin-bottom: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-}*/
 
 .fila {
   display: grid;
@@ -305,7 +295,6 @@
   white-space: nowrap;
   background: #4c05f1;
   color: #fff;
-
 }
 
 .div-boton {

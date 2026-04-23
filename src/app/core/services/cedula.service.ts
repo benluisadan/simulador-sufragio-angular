@@ -19,33 +19,32 @@ export class CedulaService {
   private baseUrlrv = `${this.apiUrl}/api/ResumenVoto`;
 
 
-  //private baseUrl = '/api/Cedula';
-  //private baseUrlv = '/api/voto';
-
-  //constructor(private http: HttpClient) { }
-
-  getPresidencial(procesoId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/presidencial/${procesoId}`);
+  getPresidencial(TippEleccionId: number, ProcesoElectoralId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/presidencial/${TippEleccionId}/${ProcesoElectoralId}`);
   }
 
-  getSenadoUnico(TipoEleccionId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/senado-unico/${TipoEleccionId}`);
+  getSenadoUnico(TipoEleccionId: number, ProcesoElectoralId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/senado-unico/${TipoEleccionId}/${ProcesoElectoralId}`);
   }
 
-  getSenadoMultiple(TipoEleccionId: number, UbigeoId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/senado-multiple/${TipoEleccionId}/${UbigeoId}`);
+  getSenadoMultiple(TipoEleccionId: number, UbigeoId: string, ProcesoElectoralId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/senado-multiple/${TipoEleccionId}/${UbigeoId}/${ProcesoElectoralId}`);
   }
 
-  getDiputados(tipoEleccionId: number, UbigeoId: string) {
-    return this.http.get<any>(`${this.baseUrl}/diputado/${tipoEleccionId}/${UbigeoId}`);
+  getDiputados(tipoEleccionId: number, UbigeoId: string, ProcesoElectoralId: number) {
+    return this.http.get<any>(`${this.baseUrl}/diputado/${tipoEleccionId}/${UbigeoId}/${ProcesoElectoralId}`);
   }
 
-  getParlamentoAndino(tipoEleccionId: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/parlamento-andino/${tipoEleccionId}`);
+  getParlamentoAndino(tipoEleccionId: number, procesoElectoralId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/parlamento-andino/${tipoEleccionId}/${procesoElectoralId}`);
   }
 
   votarPresidencial(data: any) {
-    return this.http.post(`${this.baseUrlv}/presidencial`, data);
+    return this.http.post(`${this.baseUrlv}/presidencial/registrar`, data);
+  }
+
+  votarPresidencialbnv(data: any) {
+    return this.http.post(`${this.baseUrlv}/presidencial/registrar-bnv`, data);
   }
 
   votarSenado(data: any) {
@@ -105,7 +104,7 @@ export class CedulaService {
     return this.UbigeoIdInterno;
   }
 
-    private ProcesoIdInterno?: number;
+  private ProcesoIdInterno?: number;
 
   setProcesoId(id: number) {
     this.ProcesoIdInterno = id;

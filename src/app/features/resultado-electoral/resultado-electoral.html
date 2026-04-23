@@ -18,6 +18,8 @@
             </div>
         </div>
     </div>
+
+    @if (mostrarBloquePresidente()) {
     <div class="bloque presidencial">
         <h2>RESULTADO SIMULACIÓN PRESIDENCIAL</h2>
         <!-- TOP (1°, 2°, 3°) -->
@@ -37,8 +39,8 @@
             </div>
         </div>
     </div>
-
-
+    }
+    @if (mostrarBloqueSenadoUnico()) {
     <div class="bloque senado-unico">
         <h2>RESULTADO SIMULACIÓN SENADO ÚNICO</h2>
 
@@ -60,7 +62,9 @@
             </div>
         </div>
     </div>
+    }
 
+    @if (mostrarBloqueSenadoMultiple()) {
     <div class="bloque senado-multiple">
         <h2>RESULTADO SIMULACIÓN SENADO MÚLTIPLE</h2>
 
@@ -82,7 +86,9 @@
             </div>
         </div>
     </div>
+    }
 
+    @if (mostrarBloqueDiputado()) {
     <div class="bloque diputados">
         <h2>RESULTADO SIMULACIÓN DIPUTADO</h2>
 
@@ -104,6 +110,10 @@
             </div>
         </div>
     </div>
+
+    }
+
+    @if (mostrarBloqueParlamentoAndino()) {
     <div class="bloque andino">
         <h2>RESULTADO PARLAMENTO ANDINO</h2>
 
@@ -125,4 +135,5 @@
             </div>
         </div>
     </div>
+}
 </div>

@@ -4,7 +4,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'cedulavotacion',
+    redirectTo: 'cedula-segunda-vuelta',
     pathMatch: 'full'
   },
   {
@@ -29,14 +29,14 @@ export const routes: Routes = [
   {
     path: 'cedula-votacion',
     loadComponent: () =>
-      import('./features/cedula-votacion/cedula-votacion')
-        .then(m => m.CedulaVotacion)
+      import('./features/cedula-segunda-vuelta/cedula-segunda-vuelta')
+        .then(m => m.CedulaSegundaVuelta)
   },
   {
     path: 'cedulavotacion',
     loadComponent: () =>
-      import('./features/cedula-sin-registro/cedula-sin-registro')
-        .then(m => m.CedulaSinRegistro)
+      import('./features/cedula-segunda-vuelta/cedula-segunda-vuelta')
+        .then(m => m.CedulaSegundaVuelta)
   },
   {
     path: 'donar',
@@ -55,6 +55,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/resumen-simulacion/resumen-simulacion')
         .then(m => m.ResumenSimulacion)
+  }
+  ,
+  {
+    path: 'cedula-segunda-vuelta',
+    loadComponent: () =>
+      import('./features/cedula-segunda-vuelta/cedula-segunda-vuelta')
+        .then(m => m.CedulaSegundaVuelta)
   }
 
 ];

@@ -1,0 +1,99 @@
+<div class="cedula-container">
+    <div class="div-botonsalir">
+        <button class="btn-salir" (click)="irAProcesoElectoral()">
+            Salir
+        </button>
+    </div>
+    <div>
+        <h2>Selecciona tu lugar de votación</h2>
+        <select class="select-elegante" [(ngModel)]="departamentoSeleccionado"
+            (ngModelChange)="onDepartamentoChange($event)">
+            <option *ngFor="let d of departamentos" [value]="d.id">{{ d.nombre }}</option>
+        </select>
+    </div>
+    <div class="bloque presidencial">
+        <div class="bloque-titulo-cedula">
+            <div class="bloque-Titulo-principal">
+                <div><img src="assets/img/escudo.jpg" class="logoescudo"></div>
+                <div>
+                    <h3 class="bloque-titulo">PRESIDENTE Y VICEPRESIDENTES</h3>
+                </div>
+                <div><img src="assets/img/ANFORA.png" class="logoanfora"></div>
+            </div>
+
+            <h3 class="bloque-Subtitulo">SEGUNDA ELECCIÓN PRESIDENCIAL 2026</h3>
+
+            <div class="instruccion">
+                MARQUE CON UNA CRUZ (+) O UN ASPA (X) DENTRO DEL RECUADRO DEL SÍMBOLO Y/O FOTOGRAFÍA DE SU PREFERENCIA.
+            </div>
+        </div>
+
+        <div class="BloquePartido">
+            @if (nuloGlobal()) {
+            <div class="overlay-nulo-global">
+                NO ME REPRESENTAN
+            </div>
+            }
+
+
+            @for (p of opcionesNormales(); track p.organizacionId) {
+
+            <div class="partido" (click)="seleccionar(p)">
+
+                <div class="BloquePartido NombrePartido">
+                    <span class="nombre-partido">{{ p.organizacionNombre }}</span>
+                </div>
+
+                <div class="BloquePartidoLogoFoto">
+
+                    <!-- LOGO -->
+                    <div class="casilla simbolo">
+                        <img [src]="p.logoUrl" class="logo">
+
+                        @if (p.marcado) {
+                        <span class="marca-x"></span>
+
+                        }
+
+
+                    </div>
+
+                    <!-- FOTO -->
+                    <div class="casilla foto" [style.background-image]="'url(' + p.presidenteFotoUrl + ')'">
+
+                        @if (p.marcado) {
+                        <span class="marca-x-foto"></span>
+                        }
+
+                    </div>
+
+                </div>
+
+                <div class="div-boton">
+                    <button class="btn-Elegir">Seleccionar</button>
+                </div>
+
+            </div>
+
+            }
+
+        </div>
+
+        <div class="BotoneraVotosAdicionales">
+            <div class="div-boton">
+                <button class="btn-blanco" (click)="votarBlanco()">Votar en Blanco</button>
+            </div>
+            <div class="div-boton">
+                <button class="btn-nulo" (click)="votarNulo()">Votar Nulo</button>
+            </div>
+            <div class="div-boton">
+                <button class="btn-resultadoestaidistica" (click)="enviarSimulacion()">
+                    Ver Resultado y Estadistica
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

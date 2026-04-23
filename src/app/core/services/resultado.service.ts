@@ -14,23 +14,23 @@ export class ResultadoService {
     private baseUrl = `${this.apiUrl}/api/ResumenVoto/estadisticas`;
 
 
-    getEstadisticasPresidencial(): Observable<EstadisticaPresidencial[]> {
-        return this.http.get<EstadisticaPresidencial[]>(`${this.baseUrl}/presidencial`);
+    getEstadisticasPresidencial(procesoElectoralId: number): Observable<EstadisticaPresidencial[]> {
+        return this.http.get<EstadisticaPresidencial[]>(`${this.baseUrl}/presidencial/${procesoElectoralId}`);
     }
 
-    getEstadisticasSenadoUnico(): Observable<EstadisticaPresidencial[]> {
-        return this.http.get<EstadisticaPresidencial[]>(`${this.baseUrl}/SenadoUnico`);
+    getEstadisticasSenadoUnico(procesoElectoralId: number): Observable<EstadisticaPresidencial[]> {
+        return this.http.get<EstadisticaPresidencial[]>(`${this.baseUrl}/SenadoUnico/${procesoElectoralId}`);
     }
 
-    getEstadisticasSenadoMultiple(): Observable<EstadisticaPresidencial[]> {
-        return this.http.get<EstadisticaPresidencial[]>(`${this.baseUrl}/SenadoMultiple`);
+    getEstadisticasSenadoMultiple(procesoElectoralId: number): Observable<EstadisticaPresidencial[]> {
+        return this.http.get<EstadisticaPresidencial[]>(`${this.baseUrl}/SenadoMultiple/${procesoElectoralId}`);
     }
 
-    getEstadisticasDiputado(): Observable<EstadisticaPresidencial[]> {
-        return this.http.get<EstadisticaPresidencial[]>(`${this.baseUrl}/Diputado`);
+    getEstadisticasDiputado(procesoElectoralId: number): Observable<EstadisticaPresidencial[]> {
+        return this.http.get<EstadisticaPresidencial[]>(`${this.baseUrl}/Diputado/${procesoElectoralId}`);
     }
-    getEstadisticasParlamentoAndino(): Observable<EstadisticaPresidencial[]> {
-        return this.http.get<EstadisticaPresidencial[]>(`${this.baseUrl}/ParlamentoAndino`);
+    getEstadisticasParlamentoAndino(procesoElectoralId: number): Observable<EstadisticaPresidencial[]> {
+        return this.http.get<EstadisticaPresidencial[]>(`${this.baseUrl}/ParlamentoAndino/${procesoElectoralId}`);
     }
 
 }

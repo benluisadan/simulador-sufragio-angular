@@ -4,13 +4,17 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
+    "rootDir": "./src",
     "types": [
       "node"
     ]
   },
   "include": [
-    "src/**/*.ts"
-, "src/app/core/models/proceso-model", "src/server.ts.bak", "src/app/app.config.server.ts.bak"  ],
+    "src/**/*.ts",
+    "src/app/core/models/proceso-model",
+    "src/server.ts.bak",
+    "src/app/app.config.server.ts.bak"
+  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

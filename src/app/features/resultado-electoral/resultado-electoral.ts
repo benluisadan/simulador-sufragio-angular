@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ResultadoService } from '../../core/services/resultado.service';
 import { EstadisticaPresidencial } from '../../core/models/resultado-electoral.models';
@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   selector: 'app-resultado-electoral',
   standalone: true,
   imports: [CommonModule],
-  
   templateUrl: './resultado-electoral.html',
   styleUrl: './resultado-electoral.scss',
 })
@@ -49,13 +48,33 @@ export class ResultadoElectoral implements OnInit {
     private estadisticasService: ResultadoService
   ) { }
 
+  procesoElectoralId: number = 0;
 
+  mostrarBloquePresidente = signal(true);
+  mostrarBloqueSenadoUnico = signal(true);
+  mostrarBloqueSenadoMultiple = signal(true);
+  mostrarBloqueDiputado = signal(true);
+  mostrarBloqueParlamentoAndino = signal(true);
 
 
 
   ngOnInit(): void {
-    this.estadisticasService.getEstadisticasPresidencial()
+
+    const nav = this.router.currentNavigation();
+    const valor = nav?.extras.state?.['valor'];
+
+    this.procesoElectoralId = Number(sessionStorage.getItem('procesoElectoralId')) ?? 0;
+    //alert(this.procesoElectoralId);
+    //alert(this.procesoElectoralId);
+    //this.procesoElectoralId = 1;
+    this.estadisticasService.getEstadisticasPresidencial(this.procesoElectoralId)
       .subscribe(data => {
+
+        this.mostrarBloquePresidente.set(true);
+        if (!data || data.length === 0) {
+          this.mostrarBloquePresidente.set(false);
+          return;
+        }
 
         // Ordenar de mayor a menor
         this.partidos = data.sort((a, b) => b.porcentajeVotos - a.porcentajeVotos);
@@ -82,8 +101,15 @@ export class ResultadoElectoral implements OnInit {
     // =========================
     // BLOQUE SENADO ÚNICO
     // =========================
-    this.estadisticasService.getEstadisticasSenadoUnico()
+    this.estadisticasService.getEstadisticasSenadoUnico(this.procesoElectoralId)
       .subscribe(data => {
+
+        this.mostrarBloqueSenadoUnico.set(true);
+        if (!data || data.length === 0) {
+          this.mostrarBloqueSenadoUnico.set(false);
+          return;
+        }
+
 
         // Ordenar de mayor a menor
         this.senado = data.sort((a, b) => b.porcentajeVotos - a.porcentajeVotos);
@@ -100,9 +126,15 @@ export class ResultadoElectoral implements OnInit {
     // =========================
     // BLOQUE SENADO MULTIPLE
     // =========================
-    this.estadisticasService.getEstadisticasSenadoMultiple()
+    this.estadisticasService.getEstadisticasSenadoMultiple(this.procesoElectoralId)
       .subscribe(data => {
 
+
+        this.mostrarBloqueSenadoMultiple.set(true);
+        if (!data || data.length === 0) {
+          this.mostrarBloqueSenadoMultiple.set(false);
+          return;
+        }
         // Ordenar de mayor a menor
         this.senadoMultiple = data.sort((a, b) => b.porcentajeVotos - a.porcentajeVotos);
 
@@ -118,8 +150,14 @@ export class ResultadoElectoral implements OnInit {
     // =========================
     // BLOQUE Diputado
     // =========================
-    this.estadisticasService.getEstadisticasDiputado()
+    this.estadisticasService.getEstadisticasDiputado(this.procesoElectoralId)
       .subscribe(data => {
+
+        this.mostrarBloqueDiputado.set(true);
+        if (!data || data.length === 0) {
+          this.mostrarBloqueDiputado.set(false);
+          return;
+        }
 
         // Ordenar de mayor a menor
         this.diputado = data.sort((a, b) => b.porcentajeVotos - a.porcentajeVotos);
@@ -136,8 +174,14 @@ export class ResultadoElectoral implements OnInit {
     // =========================
     // BLOQUE Parlamento Andino
     // =========================
-    this.estadisticasService.getEstadisticasParlamentoAndino()
+    this.estadisticasService.getEstadisticasParlamentoAndino(this.procesoElectoralId)
       .subscribe(data => {
+
+        this.mostrarBloqueParlamentoAndino.set(true);
+        if (!data || data.length === 0) {
+          this.mostrarBloqueParlamentoAndino.set(false);
+          return;
+        }
 
         // Ordenar de mayor a menor
         this.parlamentoAndino = data.sort((a, b) => b.porcentajeVotos - a.porcentajeVotos);

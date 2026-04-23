@@ -238,7 +238,7 @@ export class CedulaVotacion implements OnInit {
 
   cargarPresidencial() {
 
-    this.cedulaService.getPresidencial(1).subscribe({
+    this.cedulaService.getPresidencial(1, this.procesoId).subscribe({
       next: (resp) => {
 
         this.partidosPresidenciales = resp.opciones.map((o: any) => ({
@@ -285,7 +285,7 @@ export class CedulaVotacion implements OnInit {
   }
 
   cargarSenadoUnico() {
-    this.cedulaService.getSenadoUnico(2).subscribe({
+    this.cedulaService.getSenadoUnico(2, this.procesoId).subscribe({
       next: (resp) => {
 
         this.partidosSenadoUnico = resp.opciones.map((o: any) => ({
@@ -325,7 +325,7 @@ export class CedulaVotacion implements OnInit {
   }
 
   cargarSenadoMultiple() {
-    this.cedulaService.getSenadoMultiple(3, this.ubigeo).subscribe({
+    this.cedulaService.getSenadoMultiple(3, this.ubigeo, this.procesoId).subscribe({
       next: (resp) => {
         this.partidosSenadoMultiple = resp.opciones.map((o: any) => ({
           id: o.organizacionId,
@@ -361,7 +361,7 @@ export class CedulaVotacion implements OnInit {
   }
 
   cargarDiputados() {
-    this.cedulaService.getDiputados(4, this.ubigeo).subscribe({
+    this.cedulaService.getDiputados(4, this.ubigeo, this.procesoId).subscribe({
       next: (resp) => {
         this.partidosDiputados = resp.opciones.map((o: any) => ({
           id: o.organizacionId,
@@ -399,12 +399,12 @@ export class CedulaVotacion implements OnInit {
   }
 
   cargarParlamentoAndino() {
-    this.cedulaService.getParlamentoAndino(5).subscribe({
+    this.cedulaService.getParlamentoAndino(5, this.procesoId).subscribe({
       next: (resp) => {
         this.partidosAndinos = resp.opciones.map((o: any) => ({
           id: o.organizacionId,
           nombre: o.organizacionNombre,
-          logopartido: o.logoUrl, 
+          logopartido: o.logoUrl,
           antiguedad: o.antiguedad,
           marcado: false,
           numero1: undefined,
