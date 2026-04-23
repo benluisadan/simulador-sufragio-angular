@@ -49,9 +49,15 @@ export class CedulaSegundaVuelta {
   ) { }
 
   ngOnInit() {
+    this.cargarDepartamentos();
+    this.cargarDatosCedula();
+    this.inicializarVotanteAnonimo();
+  }
+
+  cargarDatosCedula() {
     this.cedulaService.getPresidencial(1, this.procesoElectoralId).subscribe({
       next: (resp: any) => {
-        console.log('[Cedula] respuesta raw', resp);
+        //console.log('[Cedula] respuesta raw', resp);
 
         const dataArray: any[] = Array.isArray(resp)
           ? resp
@@ -61,7 +67,7 @@ export class CedulaSegundaVuelta {
               ? resp.data
               : [];
 
-        console.log('[Cedula] dataArray normalizado', dataArray);
+        //console.log('[Cedula] dataArray normalizado', dataArray);
 
         const lista = dataArray.map((o: any) => ({
           organizacionId: o.organizacionId,
@@ -84,12 +90,11 @@ export class CedulaSegundaVuelta {
         this.opcionesNormales.set(normales);
         this.opciones.set(lista);
 
-        console.log('[Cedula] opcionesNormales', this.opcionesNormales());
+        //console.log('[Cedula] opcionesNormales', this.opcionesNormales());
       },
       error: err => console.error('[Cedula] error', err)
     });
-    this.cargarDepartamentos();
-    this.inicializarVotanteAnonimo();
+
   }
 
   cargarDepartamentos() {
@@ -199,23 +204,25 @@ export class CedulaSegundaVuelta {
   }
 
   async inicializarVotanteAnonimo() {
+
+    // 1. Obtener IP
+    this.obtenerIpPublica();
+
+
     const votanteGuardado = sessionStorage.getItem("votanteAnonimo");
     if (votanteGuardado) {
       this.votanteId = Number(votanteGuardado);
       return; // ← ya está listo
-    }
-
-    // 1. Obtener IP
-    await this.obtenerIpPublica();
+    }   
 
     // 2. Registrar votante
-    await this.registrarVotanteAnonimo();
+    this.registrarVotanteAnonimo();
   }
 
 
   registrarVotanteAnonimo(): Promise<void> {
     return new Promise((resolve, reject) => {
-
+      this.ubigeoId = '1401';
       const data = {
         ubigeo: this.ubigeoId.toString().padEnd(6, '0'),
         ipPublica: this.ipUsuario,

@@ -14,11 +14,11 @@
     <div class="bloque presidencial">
         <div class="bloque-titulo-cedula">
             <div class="bloque-Titulo-principal">
-                <div><img src="assets/img/escudo.jpg" class="logoescudo"></div>
+                <div><img src="assets/img/escudo.jpg" class="logoescudo" loading="lazy"></div>
                 <div>
                     <h3 class="bloque-titulo">PRESIDENTE Y VICEPRESIDENTES</h3>
                 </div>
-                <div><img src="assets/img/ANFORA.png" class="logoanfora"></div>
+                <div><img src="assets/img/ANFORA.png" class="logoanfora" loading="lazy"></div>
             </div>
 
             <h3 class="bloque-Subtitulo">SEGUNDA ELECCIÓN PRESIDENCIAL 2026</h3>
@@ -48,7 +48,7 @@
 
                     <!-- LOGO -->
                     <div class="casilla simbolo">
-                        <img [src]="p.logoUrl" class="logo">
+                        <img [src]="p.logoUrl" class="logo" loading="lazy">
 
                         @if (p.marcado) {
                         <span class="marca-x"></span>
@@ -59,7 +59,7 @@
                     </div>
 
                     <!-- FOTO -->
-                    <div class="casilla foto" [style.background-image]="'url(' + p.presidenteFotoUrl + ')'">
+                    <div loading="lazy" class="casilla foto" [style.background-image]="'url(' + p.presidenteFotoUrl + ')'" >
 
                         @if (p.marcado) {
                         <span class="marca-x-foto"></span>
